@@ -43,8 +43,7 @@ class BagTiles:
             Tile('Ñ', 8),
             Tile('RR', 8),
             Tile('X', 8),
-            Tile('Z', 10),
-            Tile('', 0)
+            Tile('Z', 10)
         ] 
         random.shuffle(self.tiles)
 

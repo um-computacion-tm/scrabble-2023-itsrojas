@@ -47,3 +47,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - changed 'scrabble_test' into 'test_scrabble'
 ### Dropped
 - Dropped old directory Trabajo_scrabble
+
+## [1.0.3] -2023-08-24
+
+### Added
+- 'scrabble' creation
+- 'scrabble_player' creation
+- 'scrabble_board' creation
+- added new tests to 'test_scrabble'
+- added new branch to github
+
+### Changed
+- changed circleci connection
+- changed .gitignore instructions
+- changed .coverage instructions
+
