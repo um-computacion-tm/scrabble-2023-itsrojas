@@ -62,3 +62,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - changed .gitignore instructions
 - changed .coverage instructions
 
+## [1.0.3] -2023-08-27
+
+### Added
+- Added 'SpecialCell' class, derived of the 'Cell' class of scrabble_board, to implement special cells
+- Added 'is_multi' method to 'Cell' to determine the special cells.
+- Added 'define_special_cells' to 'Board' to configure the special cell of the board.
+- Added a new test to verify if the special cells works.
+
+### Changed
+- Changed '__init__' method of Board so it can call define_special_cells during the method.
+- Changed '__init__' method of Player so the player begins with a puntuation of 0
+
+### Fixed
+- Fixed 'TestBagtiles' from 'test_scrabble' so it can now have the real number of tiles that the bagtile has.
+- Fixed 'player' class points so it bagins with 0 paints and it doesn`t crash the test
+

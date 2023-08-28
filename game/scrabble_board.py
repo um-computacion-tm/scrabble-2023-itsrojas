@@ -4,10 +4,25 @@ import unittest
 class Board:
     def __init__(self):
         self.grid = [
-            [ None for _ in range(15) ]
+            [Cell(multiplier=1, multiplier_type='') for _ in range(15)]  
             for _ in range(15)
         ]
+        self.define_special_cells()
 
+    def define_special_cells(self):
+        special_cells = {
+            (0, 0): ('x3_word', 'W3'), (0,7): ('x3_word', 'W3'), (0,14): ('x3_word', 'W3'), (7,0): ('x3_word', 'W3'), (7,14): ('x3_word', 'W3'), (14,0): ('x3_word', 'W3'), (14,7): ('x3_word', 'W3'), (14,14): ('x3_word', 'W3'),
+            (1,5): ('x3_letter', 'L3'), (1,9): ('x3_letter', 'L3'), (5,1): ('x3_letter', 'L3'),(5,5): ('x3_letter', 'L3'),(5,9): ('x3_letter', 'L3'), (5,13): ('x3_letter', 'L3'), (9,1): ('x3_letter', 'L3'),  (9,5): ('x3_letter', 'L3'),
+            (9,9): ('x3_letter', 'L3'), (9,13): ('x3_letter', 'L3'), (13,5): ('x3_letter', 'L3'), (13,9): ('x3_letter', 'L3'),
+            (1,1): ('x2_word', 'W2'), (2,2): ('x2_word', 'W2'), (3,3): ('x2_word', 'W2'), (4,4): ('x2_word', 'W2'), (4,10): ('x2_word', 'W2'), (3,11): ('x2_word', 'W2'), (2,12): ('x2_word', 'W2'), (1,13): ('x2_word', 'W2'),
+            (13,1): ('x2_word', 'W2'), (12,2): ('x2_word', 'W2'), (11,3): ('x2_word', 'W2'), (10,4): ('x2_word', 'W2'), (10,10): ('x2_word', 'W2'), (11,11): ('x2_word', 'W2'), (12,12): ('x2_word', 'W2'), (13,13): ('x2_word', 'W2'), 
+            (0,3): ('x2_letter', 'L2'), (0,12): ('x2_letter', 'L2'), (2,6): ('x2_letter', 'L2'), (2,8): ('x2_letter', 'L2'), (3,0): ('x2_letter', 'L2'), (3,7): ('x2_letter', 'L2'), (3,14): ('x2_letter', 'L2'), (6,2): ('x2_letter', 'L2'),
+            (6,6): ('x2_letter', 'L2'), (6,8): ('x2_letter', 'L2'), (6,12): ('x2_letter', 'L2'), (7,3): ('x2_letter', 'L2'), (7,11): ('x2_letter', 'L2'), (8,2): ('x2_letter', 'L2'), (8,6): ('x2_letter', 'L2'), (8,8): ('x2_letter', 'L2'),
+            (8,12): ('x2_letter', 'L2'), (11,0): ('x2_letter', 'L2'), (11,7): ('x2_letter', 'L2'), (11,14): ('x2_letter', 'L2'), (12,6): ('x2_letter', 'L2'), (12,8): ('x2_letter', 'L2'), (14,3): ('x2_letter', 'L2'), (14,11): ('x2_letter', 'L2')
+        }
+        for row, col in special_cells:
+            multiplier_type, icon = special_cells[(row, col)]
+            self.grid[row][col] = SpecialCell(multiplier=2, multiplier_type=multiplier_type, icon=icon)
 
 class Cell:
     def __init__(self, multiplier, multiplier_type):
@@ -25,3 +40,11 @@ class Cell:
             return self.letter.value * self.multiplier
         else:
             return self.letter.value
+        
+    def is_multi(self):
+        return self.multiplier_type in ['x2_letter', 'x3_letter', 'x2_word', 'x3_word']
+    
+class SpecialCell(Cell):
+    def __init__(self, multiplier, multiplier_type, icon):
+        super().__init__(multiplier, multiplier_type)
+        self.icon = icon
