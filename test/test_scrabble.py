@@ -165,6 +165,39 @@ class TestPlayer(unittest.TestCase):
             len(player_1.tiles),
             0,
         )
+    
+    def setUp(self):
+        self.player = Player() 
+        self.bag = BagTiles() 
+
+    def test_add_tiles(self):
+        tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 3)]
+        self.player.add_tiles(tiles)
+        self.assertEqual(len(self.player.tiles), 3)
+        
+    def test_remove_tiles(self):
+        tile_A = Tile('A', 1)
+        tile_B = Tile('B', 3)
+        tile_C = Tile('C', 3)
+        tiles = [tile_A, tile_B, tile_C]
+        
+        self.player.add_tiles(tiles)
+        
+        tiles_to_remove = [tile_A, tile_C]
+        self.player.remove_tiles(tiles_to_remove)
+        self.assertEqual(len(self.player.tiles), 1)
+        self.assertEqual(self.player.tiles[0].letter, 'B')
+
+    def test_exchange_tiles(self):
+        tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 3), Tile('D', 2)]
+        self.player.add_tiles(tiles)
+        original_tiles = self.player.tiles[:]
+        
+        tiles_to_exchange = [Tile('A', 1), Tile('C', 3)]
+        self.player.exchange_tiles(tiles_to_exchange, self.bag)
+        
+        self.assertEqual(len(self.player.tiles), 2)
+        self.assertNotEqual(self.player.tiles, original_tiles)
 
 class TestScrabbleGame(unittest.TestCase):
     def test_init(self):

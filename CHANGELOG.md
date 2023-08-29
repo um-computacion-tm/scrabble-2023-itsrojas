@@ -62,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - changed .gitignore instructions
 - changed .coverage instructions
 
-## [1.0.3] -2023-08-27
+## [1.0.4] -2023-08-27
 
 ### Added
 - Added 'SpecialCell' class, derived of the 'Cell' class of scrabble_board, to implement special cells
@@ -77,4 +77,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed 'TestBagtiles' from 'test_scrabble' so it can now have the real number of tiles that the bagtile has.
 - Fixed 'player' class points so it bagins with 0 paints and it doesn`t crash the test
+
+## [1.0.5] -2023-08-28
+
+### Added
+- Added 'add_tiles' in 'scrabble_player.py' that allows to add some tiles to the player's hand. 
+- Added 'remove_tiles' in 'scrabble_player.py'that allows to remove specific tiles tiles from the player's hand.
+- Added 'exchange_tiles' in 'scrabble_player.py' facilitate tile exchange with the tile bag.
+- Added new tests to 'test_scrabble,py' to verify new functions.
+
+### Fixed
+- Fixed the import in 'scrabble_player.py'so it can finally works
+- Reconnected circleCi with the repository.
 
