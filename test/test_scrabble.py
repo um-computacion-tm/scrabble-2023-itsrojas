@@ -170,6 +170,17 @@ class TestPlayer(unittest.TestCase):
         self.player = Player() 
         self.bag = BagTiles() 
 
+    def test_draw_initial_tiles(self):
+        with patch.object(BagTiles, 'take') as mock_take:
+            mock_take.return_value = [
+                Tile('A', 1), Tile('B', 3), Tile('C', 3),
+                Tile('D', 2), Tile('E', 1), Tile('F', 4), Tile('G', 2)
+            ]
+            player = Player()
+            bag = BagTiles()
+            player.draw_initial_tiles(bag)
+            self.assertEqual(len(player.tiles), 7)
+
     def test_add_tiles(self):
         tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 3)]
         self.player.add_tiles(tiles)

@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated 'game' directory with 'gamescrabble'
 
 ### Known Issues
-- changelog do not collect test data(status: unsolved)
+- coverage do not collect test data(status: unsolved)
 
 ## [1.0.2] -2023-08-22
 
@@ -89,4 +89,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Fixed the import in 'scrabble_player.py'so it can finally works
 - Reconnected circleCi with the repository.
+
+## [1.0.6] -2023-08-29
+
+### Added
+- Added 'draw_initial_tiles' to 'scrabble_player.py' so each player can begin wit their initial tiles
+- Added new test on 'test_scrabble.py' so it can be seen if the initial tiles code works
+
+### Changed
+- Optimized the code
+- fixed some changelog grammar errors.
+
+### Dropped
+- Removed requirements.txt from github
+
+### Known error
+- Circleci webpage don`t allow to sign up leading instead to this link: https://circleci.com/hooks/github?signup-404=true (unsolved)
 
