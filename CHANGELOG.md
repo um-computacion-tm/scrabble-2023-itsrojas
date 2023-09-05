@@ -106,3 +106,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Known error
 - Circleci webpage don`t allow to sign up leading instead to this link: https://circleci.com/hooks/github?signup-404=true (unsolved)
 
+## [1.0.7] -2023-08-30
+
+### Added
+- Added 'test_player.py' to the archives to separate and optimize the tests.
+- Added 'test_board.py' to the archives to separate and optimize the tests.
+- Added 'test_objects.py' to the archives to seprate the tests.
+- Added new test  to 'test_board.py'
+
+### Changed
+- Reduced the code in 'test_scrabble.py' and make it specific for the tests for scrabble.py
