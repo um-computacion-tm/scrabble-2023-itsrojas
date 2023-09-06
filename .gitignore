@@ -6,9 +6,6 @@ __pycache__/
 # C extensions
 *.so
 
-# archive
-requirements.txt
-
 # Distribution / packaging
 .Python
 build/
@@ -166,7 +163,3 @@ cython_debug/
 
 # Ignore the node_modules/ directory
 node_modules/
-
-# Ignore package-lock.json and package.json files
-package-lock.json
-package.json
