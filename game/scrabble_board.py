@@ -24,6 +24,9 @@ class Board:
             multiplier_type, icon = special_cells[(row, col)]
             self.grid[row][col] = SpecialCell(multiplier=2, multiplier_type=multiplier_type, icon=icon)
 
+    def change_state(self):
+        ...
+
 class Cell:
     def __init__(self, multiplier, multiplier_type):
         self.multiplier = multiplier
