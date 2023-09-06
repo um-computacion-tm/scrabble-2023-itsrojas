@@ -1,4 +1,4 @@
-from scrabble_objects import Tile
+from game.scrabble_objects import Tile
 import unittest
 
 class Board:
