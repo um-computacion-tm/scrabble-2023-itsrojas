@@ -116,3 +116,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Reduced the code in 'test_scrabble.py' and make it specific for the tests for scrabble.py
+
+## [1.0.8] -2023-09-5
+
+### Added
+- Added new connection to Code Climate to github and circleci.
+- Added the tests of 'test_board.py' to 'test_scrabble.py' to analyse an error.
+
+### Fixed
+
+- Fixed errors on some tests that dind`t recognized the ubication of the repository
+
+### Dropped
+
+- Dropped 'test_board.py'
+
+### Known Error
+
+- There is still an error in 'test_scrabble.py' that doesn't seem to recognize some objects of some archives but the proggram still recognizes them. I think that the main problem is relaate to 'scrabble_board.py'

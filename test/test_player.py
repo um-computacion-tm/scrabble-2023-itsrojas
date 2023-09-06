@@ -1,4 +1,12 @@
 import unittest
+
+import sys
+import os
+
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+sys.path.insert(0, repo_root)
+
 from game.scrabble_objects import BagTiles, Tile
 from game.scrabble_player import Player
 from unittest.mock import patch
