@@ -2,9 +2,10 @@ import unittest
 from .scrabble_objects import Tile, BagTiles
 
 class Player:
-    def __init__(self, points=0):
+    def __init__(self,bag_tiles=None, points=0):
         self.tiles = []
         self.points = points
+        self.bag_tiles = bag_tiles 
 
     def draw_initial_tiles(self, bag):
         initial_tiles = bag.take(7)

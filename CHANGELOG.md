@@ -134,3 +134,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Known Error
 
 - There is still an error in 'test_scrabble.py' that doesn't seem to recognize some objects of some archives but the proggram still recognizes them. I think that the main problem is relaate to 'scrabble_board.py'
+
+## [1.0.9] -2023-09-6 
+
+## Added
+- Added again 'test_board.py' after solving the recognition error.
+- Added new function to 'ScrabbleGame' 'next_turn' to advance turns in the game.
+- Added a new test to verify the new function.
+
+## Changed
+- changed the '__init__' function of 'scrabble_player.py' so it can now have bag_tiles
+- changed the '__init__' function of 'scrabble.py' so it can work with the points.
+- changed import that 'scrabble_board.py' has so it can work correctly with 'scrabble_objects.py'
+
+## Fixed
+- Finally fixed the circleCI and code climate connection by purgin all of the java datas of the repositry
+- Fixed the recognition error of the test by changing the import of 'scrabble_board.py' to 'game.scrabble_objects'
+- Fixed the config.yml of circleCI so it can now work properly.
+## Dropped
+- Dropped some trash files of the repository
+
+

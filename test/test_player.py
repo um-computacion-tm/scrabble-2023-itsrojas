@@ -13,11 +13,12 @@ from unittest.mock import patch
 
 class TestPlayer(unittest.TestCase):
     def test_init(self):
-        player_1 = Player()
+        player_1 = Player(bag_tiles=BagTiles())
         self.assertEqual(
             len(player_1.tiles),
             0,
         )
+
     
     def setUp(self):
         self.player = Player() 
