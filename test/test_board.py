@@ -1,6 +1,5 @@
 import unittest
 
-from game.scrabble_board import Board
 from game.scrabble_objects import Tile
 from game.scrabble_board import Board, Cell, SpecialCell
 
@@ -100,6 +99,32 @@ class TestCell(unittest.TestCase):
 
         ]
 
+class TestCalculateWordValue(unittest.TestCase):
+    def test_simple(self):
+        board = Board()
+        word = [
+            Cell(letter=Tile('C', 3)),
+            Cell(letter=Tile('A', 1)),
+            Cell(letter=Tile('S', 1)),
+            Cell(letter=Tile('A', 1)),
+        ]
+        value = board.calculate_word_value(word)  # Llama al método de la instancia de Board
+        self.assertEqual(value, 6)
+
+    def test_with_letter_multiplier(self):
+        board = Board()
+        word = [
+            Cell(letter=Tile('C', 3)),
+            Cell(letter=Tile('A', 1)),
+            Cell(
+                letter=Tile('S', 1),
+                multiplier=2,  
+                multiplier_type='letter',  
+            ),
+            Cell(letter=Tile('A', 1)),
+        ]
+        value = board.calculate_word_value(word)  # Llama al método de la instancia de Board
+        self.assertEqual(value, 7)
 
 if __name__ == '__main__':
     unittest.main()

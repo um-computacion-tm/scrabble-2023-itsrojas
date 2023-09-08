@@ -154,4 +154,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Dropped
 - Dropped some trash files of the repository
 
+## [1.1.0] -2023-09-7 
 
+## Added
+- Added a new function `calculate_word_value` to `scrabble_board.py` that calculates the value of a word formed on the game board. 
+- Added a new test to see if the function works.

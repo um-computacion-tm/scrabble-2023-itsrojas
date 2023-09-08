@@ -23,19 +23,31 @@ class Board:
         for row, col in special_cells:
             multiplier_type, icon = special_cells[(row, col)]
             self.grid[row][col] = SpecialCell(multiplier=2, multiplier_type=multiplier_type, icon=icon)
+    
+    def calculate_word_value(self, word):
+        total_value = 0
+        word_multiplier = 1
+        for cell in word:
+            letter_value = cell.calculate_value()
+            total_value += letter_value
+        if cell.multiplier_type == 'word':
+            word_multiplier *= cell.multiplier
+        total_value *= word_multiplier
+        return total_value
 
     def change_state(self):
         ...
+    
 
 class Cell:
-    def __init__(self, multiplier, multiplier_type):
+    def __init__(self, letter=None, multiplier=1, multiplier_type=''):
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
-        self.letter = None
-
-    def add_letter(self, letter:Tile):
         self.letter = letter
-        
+
+    def add_letter(self, letter: Tile):
+        self.letter = letter
+
     def calculate_value(self):
         if self.letter is None:
             return 0
@@ -43,11 +55,22 @@ class Cell:
             return self.letter.value * self.multiplier
         else:
             return self.letter.value
-        
+
     def is_multi(self):
         return self.multiplier_type in ['x2_letter', 'x3_letter', 'x2_word', 'x3_word']
+
     
 class SpecialCell(Cell):
     def __init__(self, multiplier, multiplier_type, icon):
         super().__init__(multiplier, multiplier_type)
         self.icon = icon
+
+    def calculate_value(self):
+        if self.letter is None:
+            return 0
+        if self.multiplier_type == 'letter':
+            return self.letter.value * self.multiplier
+        else:
+            return self.letter.value * self.multiplier  
+
+
