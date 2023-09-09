@@ -126,5 +126,40 @@ class TestCalculateWordValue(unittest.TestCase):
         value = board.calculate_word_value(word)  # Llama al método de la instancia de Board
         self.assertEqual(value, 7)
 
+    def test_with_word_multiplier(self):
+        board = Board()
+        word = [
+            Cell(letter=Tile('C', 3)),
+            Cell(letter=Tile('A', 1)),
+            Cell(
+                letter=Tile('S', 1),
+                multiplier=2,
+                multiplier_type='word',
+            ),
+            Cell(letter=Tile('A', 1)),
+        ]
+        value = board.calculate_word_value(word)
+        self.assertEqual(value, 12)
+
+    def test_with_letter_word_multiplier(self):
+        board = Board()
+        word = [
+            Cell(
+                multiplier=2,
+                multiplier_type='letter',
+                letter=Tile('C', 3)
+            ),
+            Cell(letter=Tile('A', 1)),
+            Cell(
+                letter=Tile('S', 1),
+                multiplier=2,
+                multiplier_type='word',
+            ),
+            Cell(letter=Tile('A', 1)),
+        ]
+        value = board.calculate_word_value(word)
+        self.assertEqual(value, 18)
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -117,7 +117,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Reduced the code in 'test_scrabble.py' and make it specific for the tests for scrabble.py
 
-## [1.0.8] -2023-09-5
+
 
 ### Added
 - Added new connection to Code Climate to github and circleci.
@@ -159,3 +159,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 - Added a new function `calculate_word_value` to `scrabble_board.py` that calculates the value of a word formed on the game board. 
 - Added a new test to see if the function works.
+
+## [1.1.1] -2023-09-8
+
+## Added
+
+- Added the attribute 'word_multiplier' to 'cell' and 'board' class so they can now track and use the words multipliers correctly.
+- Added new test to 'test_boarb.py' so it can verify if the code uses the differents multipliers well. 
+
+## Changed
+- Changed the way on how the 'calculate_word_value' method works by adding a way that it can multiply the word multipliers now and so it doesn`t mess up the order of the operation
+- Adjusted the 'calculate_value' method in the 'Cell' class to use the individual word multiplier if the multiplier type is 'letter_word' in the new code.
+
+

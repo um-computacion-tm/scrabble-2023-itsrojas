@@ -27,22 +27,35 @@ class Board:
     def calculate_word_value(self, word):
         total_value = 0
         word_multiplier = 1
+
+    # Calcular el valor total de la palabra y verificar los multiplicadores de palabra individual
         for cell in word:
             letter_value = cell.calculate_value()
             total_value += letter_value
-        if cell.multiplier_type == 'word':
-            word_multiplier *= cell.multiplier
+
+        if cell.multiplier_type == 'letter_word':
+            total_value *= cell.word_multiplier
+
+    # Verificar si alguna celda tiene un multiplicador de palabra global
+        for cell in word:
+            if cell.multiplier_type == 'word':
+                word_multiplier *= cell.multiplier
+
         total_value *= word_multiplier
+
         return total_value
+
+
 
     def change_state(self):
         ...
     
 
 class Cell:
-    def __init__(self, letter=None, multiplier=1, multiplier_type=''):
+    def __init__(self, letter=None, multiplier=1, multiplier_type='', word_multiplier=1):
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
+        self.word_multiplier = word_multiplier
         self.letter = letter
 
     def add_letter(self, letter: Tile):
