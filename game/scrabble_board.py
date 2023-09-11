@@ -24,24 +24,25 @@ class Board:
             multiplier_type, icon = special_cells[(row, col)]
             self.grid[row][col] = SpecialCell(multiplier=2, multiplier_type=multiplier_type, icon=icon)
     
-    def calculate_word_value(self, word):
+    def calculate_word_value(self, word, current_player):
         total_value = 0
         word_multiplier = 1
 
-    # Calcular el valor total de la palabra y verificar los multiplicadores de palabra individual
+        # Calcular el valor total de la palabra y verificar los multiplicadores de palabra individual
         for cell in word:
-            letter_value = cell.calculate_value()
-            total_value += letter_value
+            if isinstance(cell, Cell):
+                letter_value = cell.calculate_value()
+                total_value += letter_value
 
-        if cell.multiplier_type == 'letter_word':
-            total_value *= cell.word_multiplier
+                if cell.multiplier_type == 'letter_word':
+                    total_value *= cell.word_multiplier
 
-    # Verificar si alguna celda tiene un multiplicador de palabra global
-        for cell in word:
-            if cell.multiplier_type == 'word':
-                word_multiplier *= cell.multiplier
+                # Verificar si alguna celda tiene un multiplicador de palabra global
+                if cell.multiplier_type == 'word':
+                    word_multiplier *= cell.multiplier
 
         total_value *= word_multiplier
+        current_player.update_score(total_value)
 
         return total_value
 
@@ -74,16 +75,8 @@ class Cell:
 
     
 class SpecialCell(Cell):
-    def __init__(self, multiplier, multiplier_type, icon):
-        super().__init__(multiplier, multiplier_type)
+    def __init__(self, multiplier, icon, multiplier_type=''):
+        super().__init__(multiplier=multiplier, multiplier_type=multiplier_type)
         self.icon = icon
-
-    def calculate_value(self):
-        if self.letter is None:
-            return 0
-        if self.multiplier_type == 'letter':
-            return self.letter.value * self.multiplier
-        else:
-            return self.letter.value * self.multiplier  
 
 

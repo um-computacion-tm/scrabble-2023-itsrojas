@@ -163,7 +163,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.1] -2023-09-8
 
 ## Added
-
 - Added the attribute 'word_multiplier' to 'cell' and 'board' class so they can now track and use the words multipliers correctly.
 - Added new test to 'test_boarb.py' so it can verify if the code uses the differents multipliers well. 
 
@@ -171,4 +170,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the way on how the 'calculate_word_value' method works by adding a way that it can multiply the word multipliers now and so it doesn`t mess up the order of the operation
 - Adjusted the 'calculate_value' method in the 'Cell' class to use the individual word multiplier if the multiplier type is 'letter_word' in the new code.
 
+## [1.1.2] -2023-09-10
 
+## Added
+- Added new method to 'scrabble_player.py' being that 'updae_score' so the players could keep up with their points during the game
+- Added new test to verify the new method
+
+## Changed
+- Optimized the codes of 'scrabble.py' and 'scrabble_board.py' so it could work better and pass the coverage test better
+- Optimized the test with the same reason and to fixs some problems with the new code
+
+## Dropped
+- Dropped reccursive method from 'SpecialCell' because its functions were already repeated on other merthod from the code.

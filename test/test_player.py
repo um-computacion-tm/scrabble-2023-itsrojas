@@ -10,6 +10,7 @@ sys.path.insert(0, repo_root)
 from game.scrabble_objects import BagTiles, Tile
 from game.scrabble_player import Player
 from unittest.mock import patch
+from game.scrabble_board import Board
 
 class TestPlayer(unittest.TestCase):
     def test_init(self):
@@ -63,6 +64,21 @@ class TestPlayer(unittest.TestCase):
         
         self.assertEqual(len(self.player.tiles), 2)
         self.assertNotEqual(self.player.tiles, original_tiles)
+
+    def test_update_score(self):
+        # Crear un jugador y un tablero
+        bag = BagTiles()
+        board = Board()
+        player = Player(board=board, bag_tiles=bag, points=0)
+
+        # Definir un valor de palabra y actualizar el puntaje del jugador
+        word_value = 10
+        player.update_score(word_value)
+
+        # Comprobar que el puntaje del jugador se ha actualizado correctamente
+        self.assertEqual(player.points, 10)
+
+    
 
 if __name__ == '__main__':
     unittest.main()

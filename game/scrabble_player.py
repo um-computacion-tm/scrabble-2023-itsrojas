@@ -1,11 +1,13 @@
 import unittest
-from .scrabble_objects import Tile, BagTiles
+from game.scrabble_objects import Tile, BagTiles
+from game.scrabble_board import Board
 
 class Player:
-    def __init__(self,bag_tiles=None, points=0):
+    def __init__(self,board=None, bag_tiles=None, points=0):
         self.tiles = []
         self.points = points
         self.bag_tiles = bag_tiles 
+        self.board = board
 
     def draw_initial_tiles(self, bag):
         initial_tiles = bag.take(7)
@@ -22,6 +24,9 @@ class Player:
         bag.put(tiles_to_exchange)
         bag.put(self.tiles)
         self.tiles = new_tiles
+
+    def update_score(self, word_value):
+        self.points += word_value
 
 
 

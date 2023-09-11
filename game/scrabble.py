@@ -10,11 +10,10 @@ class ScrabbleGame:
         self.board = Board()
         self.bag_tiles = BagTiles()
         self.players = []
-        self.players:list[Player] = []
-        for _ in range(players_count):
-            self.players.append(Player(bag_tiles=self.bag_tiles))
 
-        
+        for _ in range(players_count):
+            self.players.append(Player(board=self.board, bag_tiles=self.bag_tiles))
+
         self.current_player = None
 
     def next_turn(self):
@@ -26,6 +25,7 @@ class ScrabbleGame:
         # Calcula el índice del siguiente jugador
             next_index = (current_index + 1) % len(self.players)
             self.current_player = self.players[next_index]
+
 
 
     
