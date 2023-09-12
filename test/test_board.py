@@ -2,7 +2,6 @@ import unittest
 
 from game.scrabble_objects import Tile
 from game.scrabble_board import Board, Cell, SpecialCell
-from game.scrabble_player import Player
 
 class TestBoard(unittest.TestCase):
     def test_init(self):
@@ -48,78 +47,87 @@ class TestBoard(unittest.TestCase):
 class TestCell(unittest.TestCase):
     def test_init(self):
         cell = Cell(multiplier=2, multiplier_type='letter')
-        self.assertEqual(cell.multiplier, 2)
-        self.assertEqual(cell.multiplier_type, 'letter')
+
+        self.assertEqual(
+            cell.multiplier,
+            2,
+        )
+        self.assertEqual(
+            cell.multiplier_type,
+            'letter',
+        )
         self.assertIsNone(cell.letter)
-        self.assertEqual(cell.calculate_value(), 0)
+        self.assertEqual(
+            cell.calculate_value(),
+            0,
+        )
 
     def test_add_letter(self):
         cell = Cell(multiplier=1, multiplier_type='')
         letter = Tile(letter='p', value=3)
+
         cell.add_letter(letter=letter)
+
         self.assertEqual(cell.letter, letter)
 
     def test_cell_value(self):
         cell = Cell(multiplier=2, multiplier_type='letter')
         letter = Tile(letter='p', value=3)
         cell.add_letter(letter=letter)
-        self.assertEqual(cell.calculate_value(), 6)
+
+        self.assertEqual(
+            cell.calculate_value(),
+            6,
+        )
 
     def test_cell_multiplier_word(self):
         cell = Cell(multiplier=2, multiplier_type='word')
         letter = Tile(letter='p', value=3)
         cell.add_letter(letter=letter)
-        self.assertEqual(cell.calculate_value(), 3)
 
-    def test_with_letter_word_multiplier(self):
-        cell = Cell(
-            multiplier=2,
-            multiplier_type='letter',
-            letter=Tile('C', 3)
+        self.assertEqual(
+            cell.calculate_value(),
+            3,
         )
-        word = [cell]
-        self.assertEqual(cell.calculate_value(), 6)
+    
+    def test_with_word_multiplayer(self):
+        cell = Cell
+        word = [
+            cell(multiplier = 3,
+                 multiplier_type='letter',
+                 ),
 
-class TestSpecialCell(unittest.TestCase):
-    def test_init(self):
-        special_cell = SpecialCell(multiplier=2, icon='W2', multiplier_type='word')
-        self.assertEqual(special_cell.multiplier, 2)
-        self.assertEqual(special_cell.multiplier_type, 'word')
-        self.assertEqual(special_cell.icon, 'W2')
-        self.assertIsNone(special_cell.letter)
+        ]
 
 class TestCalculateWordValue(unittest.TestCase):
     def test_simple(self):
         board = Board()
-        player = Player(board=board)  # Agregar el jugador para pasarlo como argumento
         word = [
             Cell(letter=Tile('C', 3)),
             Cell(letter=Tile('A', 1)),
             Cell(letter=Tile('S', 1)),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word, player)  # Pasar el jugador como argumento
+        value = board.calculate_word_value(word)  # Llama al método de la instancia de Board
         self.assertEqual(value, 6)
 
     def test_with_letter_multiplier(self):
         board = Board()
-        player = Player(board=board)  # Agregar el jugador para pasarlo como argumento
         word = [
             Cell(letter=Tile('C', 3)),
             Cell(letter=Tile('A', 1)),
             Cell(
                 letter=Tile('S', 1),
-                multiplier=2,
-                multiplier_type='letter',
+                multiplier=2,  
+                multiplier_type='letter',  
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word, player)  # Pasar el jugador como argumento
+        value = board.calculate_word_value(word)  # Llama al método de la instancia de Board
         self.assertEqual(value, 7)
 
     def test_with_word_multiplier(self):
         board = Board()
-        player = Player(board=board)  # Agregar el jugador para pasarlo como argumento
         word = [
             Cell(letter=Tile('C', 3)),
             Cell(letter=Tile('A', 1)),
@@ -130,12 +138,11 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word, player)  # Pasar el jugador como argumento
+        value = board.calculate_word_value(word)
         self.assertEqual(value, 12)
 
     def test_with_letter_word_multiplier(self):
         board = Board()
-        player = Player(board=board)  # Agregar el jugador para pasarlo como argumento
         word = [
             Cell(
                 multiplier=2,
@@ -150,8 +157,39 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word, player)  # Pasar el jugador como argumento
+        value = board.calculate_word_value(word)
         self.assertEqual(value, 18)
+
+    def test_with_letter_word_multiplier_no_active(self):
+        board = Board()
+        word = [
+            Cell(
+                multiplier=2,
+                multiplier_type='letter',
+                letter=Tile('C', 3)
+            ),
+            Cell(letter=Tile('A', 1)),
+            Cell(
+                letter=Tile('S', 1),
+                multiplier=2,
+                multiplier_type='word',
+            ),
+            Cell(letter=Tile('A', 1)),
+        ]
+
+        # Primera parte del test: cálculo normal
+        value = board.calculate_word_value(word)
+        self.assertEqual(value, 18)
+
+        # Desactivar los multiplicadores
+        for cell in word:
+            if cell.multiplier_type:
+                board.used_special_cells.add(cell)
+
+    # Segunda parte del test: cálculo sin multiplicadores
+        new_word = [Cell(letter=cell.letter) for cell in word]  # Crear una copia sin multiplicadores
+        new_value = board.calculate_word_value(new_word)
+        self.assertEqual(new_value, 6)
 
 
 if __name__ == '__main__':

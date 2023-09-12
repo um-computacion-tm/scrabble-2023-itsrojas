@@ -14,17 +14,17 @@ class ScrabbleGame:
         for _ in range(players_count):
             self.players.append(Player(board=self.board, bag_tiles=self.bag_tiles))
 
-        self.current_player = None
+        self.current_player_index = None
 
     def next_turn(self):
-        if self.current_player is None:
-            self.current_player = self.players[0]
+        if self.current_player_index is None:
+            self.current_player_index = 0
         else:
-        # Obtiene el índice actual del jugador
-            current_index = self.players.index(self.current_player)
-        # Calcula el índice del siguiente jugador
-            next_index = (current_index + 1) % len(self.players)
-            self.current_player = self.players[next_index]
+            # Calcula el índice del siguiente jugador circularmente
+            self.current_player_index = (self.current_player_index + 1) % len(self.players)
+
+        self.current_player = self.players[self.current_player_index]
+
 
 
 

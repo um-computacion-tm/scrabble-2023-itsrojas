@@ -118,7 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reduced the code in 'test_scrabble.py' and make it specific for the tests for scrabble.py
 
 
-
+## [1.0.8] -2023-09-01
 ### Added
 - Added new connection to Code Climate to github and circleci.
 - Added the tests of 'test_board.py' to 'test_scrabble.py' to analyse an error.
@@ -173,12 +173,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.2] -2023-09-10
 
 ## Added
-- Added new method to 'scrabble_player.py' being that 'updae_score' so the players could keep up with their points during the game
+- Added new method to 'scrabble_player.py' being that 'update_score' so the players could keep up with their points during the game
 - Added new test to verify the new method
 
 ## Changed
 - Optimized the codes of 'scrabble.py' and 'scrabble_board.py' so it could work better and pass the coverage test better
-- Optimized the test with the same reason and to fixs some problems with the new code
+- Optimized the test with the same reason and to fixes some problems with the new code
 
 ## Dropped
 - Dropped reccursive method from 'SpecialCell' because its functions were already repeated on other merthod from the code.
+
+## [1.1.3] -2023-09-12
+
+## Added
+
+- Added new tests to 'test_board.py' and 'test_scrabble.py' so it can test the new functions of the code
+## Changed
+- Changed the code of the 'next_turn' method of 'scrabble.py' so that player`s turns are rotated circularly.
+- Changed the code of the 'calculate_word_value' method of 'scrabble_board.py' so it gain the capacity to deactivate the special cells and their multipliers so the code doesn`t repeat already used multipliers
+
