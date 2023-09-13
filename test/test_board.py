@@ -99,7 +99,7 @@ class TestCell(unittest.TestCase):
 
         ]
 
-class TestCalculateWordValue(unittest.TestCase):
+class TestCalculateWord(unittest.TestCase):
     def test_simple(self):
         board = Board()
         word = [
@@ -108,7 +108,7 @@ class TestCalculateWordValue(unittest.TestCase):
             Cell(letter=Tile('S', 1)),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word)  # Llama al método de la instancia de Board
+        value = board.calculate_word(word)  # Llama al método de la instancia de Board
         self.assertEqual(value, 6)
 
     def test_with_letter_multiplier(self):
@@ -123,7 +123,7 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word)  # Llama al método de la instancia de Board
+        value = board.calculate_word(word)  # Llama al método de la instancia de Board
         self.assertEqual(value, 7)
 
     def test_with_word_multiplier(self):
@@ -138,7 +138,7 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word)
+        value = board.calculate_word(word)
         self.assertEqual(value, 12)
 
     def test_with_letter_word_multiplier(self):
@@ -157,7 +157,7 @@ class TestCalculateWordValue(unittest.TestCase):
             ),
             Cell(letter=Tile('A', 1)),
         ]
-        value = board.calculate_word_value(word)
+        value = board.calculate_word(word)
         self.assertEqual(value, 18)
 
     def test_with_letter_word_multiplier_no_active(self):
@@ -178,7 +178,7 @@ class TestCalculateWordValue(unittest.TestCase):
         ]
 
         # Primera parte del test: cálculo normal
-        value = board.calculate_word_value(word)
+        value = board.calculate_word(word)
         self.assertEqual(value, 18)
 
         # Desactivar los multiplicadores
@@ -188,8 +188,10 @@ class TestCalculateWordValue(unittest.TestCase):
 
     # Segunda parte del test: cálculo sin multiplicadores
         new_word = [Cell(letter=cell.letter) for cell in word]  # Crear una copia sin multiplicadores
-        new_value = board.calculate_word_value(new_word)
+        new_value = board.calculate_word(new_word)
         self.assertEqual(new_value, 6)
+
+
 
 
 if __name__ == '__main__':

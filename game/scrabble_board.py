@@ -25,7 +25,7 @@ class Board:
             multiplier_type, icon = special_cells[(row, col)]
             self.grid[row][col] = SpecialCell(multiplier=2, multiplier_type=multiplier_type, icon=icon)
     
-    def calculate_word_value(self, word):
+    def calculate_word(self, word):
         total_value = 0
         word_multiplier = 1
 
