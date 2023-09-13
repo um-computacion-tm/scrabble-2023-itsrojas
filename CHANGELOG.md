@@ -118,7 +118,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reduced the code in 'test_scrabble.py' and make it specific for the tests for scrabble.py
 
 
-## [1.0.8] -2023-09-01
+## [1.0.8] -2023-09-5
+
 ### Added
 - Added new connection to Code Climate to github and circleci.
 - Added the tests of 'test_board.py' to 'test_scrabble.py' to analyse an error.
