@@ -187,9 +187,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.3] -2023-09-12
 
 ## Added
-
 - Added new tests to 'test_board.py' and 'test_scrabble.py' so it can test the new functions of the code
 ## Changed
 - Changed the code of the 'next_turn' method of 'scrabble.py' so that player`s turns are rotated circularly.
 - Changed the code of the 'calculate_word_value' method of 'scrabble_board.py' so it gain the capacity to deactivate the special cells and their multipliers so the code doesn`t repeat already used multipliers
 
+## [1.1.4] -2023-09-20
+
+## Added
+- Added the code of 'main.py' into the 'game' directory to configure the game
+- Added but not completed the methods of 'validate_word', 'get_words' and 'put_words' on 'scrabble.py' to complete later
