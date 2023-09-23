@@ -198,7 +198,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the code of 'main.py' into the 'game' directory to configure the game
 - Added but not completed the methods of 'validate_word', 'get_words' and 'put_words' on 'scrabble.py' to complete later
 
-## [1.1.4] -2023-09-20
+## [1.1.5] -2023-09-22
 
 ## Added
 - Added 'has_letter' method to 'Player' class to verify if the player has the necesary letters for the word
@@ -207,3 +207,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Notes
 - with 'has_letter' set and working i can now has the code and process necesary to make the method of 'validate_word' work into the code
 
+
+## [1.1.6] -2023-09-23
+
+## Added
+- Added the exception `InvalidWordError` into 'scrabble.py' to handle the error related to invalid words
+- Added the code of 'validate_word' to 'scrabble.py'to validate if a word is valid to put on the board
+- Added `place_word` method to `Scrabble.py` to place the word on the board if it is valid.
+- Added new tests to verify the new addition
+
+## Changed
+-Updated some codes in `scrabble.py` to adapt to the new functionality.
+-Updated the `ScrabbleGame` constructor of 'scrabble.py' to initialize `current_player` and `current_player_index`.

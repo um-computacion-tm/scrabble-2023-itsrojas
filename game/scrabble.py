@@ -4,6 +4,9 @@ from game.scrabble_board import Board
 from game.scrabble_player import Player
 from game.scrabble_objects import BagTiles
 
+class InvalidWordError(Exception):
+    pass
+
 
 class ScrabbleGame:
     def __init__(self, players_count: int):
@@ -15,6 +18,7 @@ class ScrabbleGame:
             self.players.append(Player(board=self.board, bag_tiles=self.bag_tiles))
 
         self.current_player_index = None
+        self.current_player = None
 
     def next_turn(self):
         if self.current_player_index is None:
@@ -26,11 +30,44 @@ class ScrabbleGame:
         self.current_player = self.players[self.current_player_index]
     
     def validate_word(self, word, location, orientation):
-        '''
-        1- Validar que usuario tiene esas letras
-        2- Validar que la palabra entra en el tablero
-        '''
-        self.board.validate_word_inside_board(word, location, orientation)
+        # 1. Validar que el usuario tiene las letras necesarias
+        player = self.current_player
+        if not player.has_letters(word):
+            raise InvalidWordError("El jugador no tiene las letras necesarias para formar la palabra.")
+
+        # 2. Validar que la palabra entra en el tablero
+        row, col = location
+        if orientation == "H":
+            end_col = col + len(word)
+            if end_col > 15:
+                raise InvalidWordError("La palabra no cabe en el tablero horizontalmente.")
+        elif orientation == "V":
+            end_row = row + len(word)
+            if end_row > 15:
+                raise InvalidWordError("La palabra no cabe en el tablero verticalmente.")
+        else:
+            raise InvalidWordError("La orientación debe ser 'H' (horizontal) o 'V' (vertical).")
+
+        # Aquí puedes agregar más lógica de validación si es necesario.
+        # Por ejemplo, verificar si la palabra se superpone con otras ya existentes en el tablero.
+
+        # Si todas las validaciones pasan, coloca la palabra en el tablero y actualiza las letras del jugador.
+        self.board.place_word(word, location, orientation)
+        player.remove_letters(word)
+
+    # Agregar este método en scrabble_board.py para colocar la palabra en el tablero:
+    def place_word(self, word, location, orientation):
+        row, col = location
+        if orientation == "H":
+            for letter in word:
+                self.grid[row][col].add_letter(letter)
+                col += 1
+        elif orientation == "V":
+            for letter in word:
+                self.grid[row][col].add_letter(letter)
+                row += 1
+    # Aquí puedes manejar los casos de celdas especiales (multiplicadores) si es necesario.
+
     
     def get_words():
         '''
@@ -44,8 +81,6 @@ class ScrabbleGame:
         '''
 
 
-
-
-    
+  
 if __name__ == '__main__':
     unittest.main()
