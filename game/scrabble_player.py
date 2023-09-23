@@ -28,5 +28,21 @@ class Player:
     def update_score(self, word_value):
         self.points += word_value
 
+    def has_letters(self, word):
+        letter_count = {}
+        for tile in self.tiles:
+            if tile.is_wildcard:
+                letter_count['?'] = letter_count.get('?', 0) + 1
+            else:
+                letter = tile.letter
+                letter_count[letter] = letter_count.get(letter, 0) + 1
+        for letter in word:
+            if letter not in letter_count or letter_count[letter] == 0:
+                return False
+            letter_count[letter] -= 1
+
+        return True
+
+
 
 

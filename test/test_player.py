@@ -20,10 +20,15 @@ class TestPlayer(unittest.TestCase):
             0,
         )
 
-    
     def setUp(self):
-        self.player = Player() 
-        self.bag = BagTiles() 
+        self.bag = BagTiles()  # Mueve la creación de self.bag aquí
+        self.player = Player(board=None, bag_tiles=self.bag, points=0)  # Luego crea self.player
+        # Agregar exactamente 7 fichas iniciales
+        initial_tiles = [
+            Tile('A', 1), Tile('B', 3), Tile('C', 3),
+            Tile('D', 2), Tile('E', 1), Tile('F', 4), Tile('G', 2)
+        ][:7]
+        self.player.add_tiles(initial_tiles)
 
     def test_draw_initial_tiles(self):
         with patch.object(BagTiles, 'take') as mock_take:
@@ -39,20 +44,23 @@ class TestPlayer(unittest.TestCase):
     def test_add_tiles(self):
         tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 3)]
         self.player.add_tiles(tiles)
-        self.assertEqual(len(self.player.tiles), 3)
+        self.assertEqual(len(self.player.tiles), 10)  # Debería haber 10 fichas en total
         
     def test_remove_tiles(self):
         tile_A = Tile('A', 1)
         tile_B = Tile('B', 3)
         tile_C = Tile('C', 3)
         tiles = [tile_A, tile_B, tile_C]
-        
+    
         self.player.add_tiles(tiles)
-        
+    
         tiles_to_remove = [tile_A, tile_C]
         self.player.remove_tiles(tiles_to_remove)
-        self.assertEqual(len(self.player.tiles), 1)
-        self.assertEqual(self.player.tiles[0].letter, 'B')
+    
+        for tile in tiles_to_remove:
+            self.assertNotIn(tile, self.player.tiles)
+    
+        self.assertEqual(len(self.player.tiles), 8)
 
     def test_exchange_tiles(self):
         tiles = [Tile('A', 1), Tile('B', 3), Tile('C', 3), Tile('D', 2)]
@@ -77,6 +85,18 @@ class TestPlayer(unittest.TestCase):
 
         # Comprobar que el puntaje del jugador se ha actualizado correctamente
         self.assertEqual(player.points, 10)
+
+    def test_has_letters_true(self):
+        # Prueba si el jugador tiene las letras para formar la palabra 'BAD'
+        word = 'BAD'
+        result = self.player.has_letters(word)
+        self.assertTrue(result)
+
+    def test_has_letters_false(self):
+        # Prueba si el jugador tiene las letras para formar la palabra 'GOOD'
+        word = 'GOOD'
+        result = self.player.has_letters(word)
+        self.assertFalse(result)
 
     
 

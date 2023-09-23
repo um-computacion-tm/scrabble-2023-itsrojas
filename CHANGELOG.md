@@ -197,3 +197,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 - Added the code of 'main.py' into the 'game' directory to configure the game
 - Added but not completed the methods of 'validate_word', 'get_words' and 'put_words' on 'scrabble.py' to complete later
+
+## [1.1.4] -2023-09-20
+
+## Added
+- Added 'has_letter' method to 'Player' class to verify if the player has the necesary letters for the word
+- Added new tests to 'test_player.py' to verify if 'has_letter' works
+
+## Notes
+- with 'has_letter' set and working i can now has the code and process necesary to make the method of 'validate_word' work into the code
+
