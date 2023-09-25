@@ -44,12 +44,24 @@ class Board:
         total_value *= word_multiplier
 
         return total_value
+    
+    def place_word(self, word, location, orientation):
+        row, col = location
+        if orientation == "H":
+            for letter in word:
+                self.grid[row][col].add_letter(letter)
+                col += 1
+        elif orientation == "V":
+            for letter in word:
+                self.grid[row][col].add_letter(letter)
+                row += 1
+        self.change_state(row, col, letter=word, score=0) 
 
-
-
-
-    def change_state(self):
-        ...
+    def change_state(self, row, col, letter=None, score=0):
+        cell = self.grid[row][col]
+        cell.letter = letter
+        cell.score = score
+        cell.is_occupied = True
     
 
 class Cell:
@@ -58,9 +70,11 @@ class Cell:
         self.multiplier_type = multiplier_type
         self.word_multiplier = word_multiplier
         self.letter = letter
+        self.is_occupied = False 
 
     def add_letter(self, letter: Tile):
         self.letter = letter
+        self.is_occupied = True 
 
     def calculate_value(self):
         if self.letter is None:

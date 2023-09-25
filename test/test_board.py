@@ -44,6 +44,22 @@ class TestBoard(unittest.TestCase):
                 else:
                     self.assertIsInstance(board.grid[row][col], Cell)
 
+    def test_change_state(self):
+        board = Board()
+        row, col = 3, 3
+        letter = Tile('A', 1)
+        score = 5
+
+        # Cambia el estado de la celda
+        board.change_state(row, col, letter=letter, score=score)
+
+        # Verifica que el estado de la celda haya cambiado correctamente
+        cell = board.grid[row][col]
+        self.assertEqual(cell.letter, letter)
+        self.assertEqual(cell.score, score)
+        self.assertEqual(cell.is_occupied, True)
+
+
 class TestCell(unittest.TestCase):
     def test_init(self):
         cell = Cell(multiplier=2, multiplier_type='letter')

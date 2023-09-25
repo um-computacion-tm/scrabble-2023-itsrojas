@@ -48,25 +48,12 @@ class ScrabbleGame:
         else:
             raise InvalidWordError("La orientación debe ser 'H' (horizontal) o 'V' (vertical).")
 
-        # Aquí puedes agregar más lógica de validación si es necesario.
-        # Por ejemplo, verificar si la palabra se superpone con otras ya existentes en el tablero.
-
         # Si todas las validaciones pasan, coloca la palabra en el tablero y actualiza las letras del jugador.
         self.board.place_word(word, location, orientation)
         player.remove_letters(word)
 
-    # Agregar este método en scrabble_board.py para colocar la palabra en el tablero:
-    def place_word(self, word, location, orientation):
-        row, col = location
-        if orientation == "H":
-            for letter in word:
-                self.grid[row][col].add_letter(letter)
-                col += 1
-        elif orientation == "V":
-            for letter in word:
-                self.grid[row][col].add_letter(letter)
-                row += 1
-    # Aquí puedes manejar los casos de celdas especiales (multiplicadores) si es necesario.
+
+
 
     
     def get_words():

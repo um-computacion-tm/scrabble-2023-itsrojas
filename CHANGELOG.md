@@ -219,3 +219,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Changed
 -Updated some codes in `scrabble.py` to adapt to the new functionality.
 -Updated the `ScrabbleGame` constructor of 'scrabble.py' to initialize `current_player` and `current_player_index`.
+
+## [1.1.7] -2023-09-24
+
+## Added
+- Added the 'change_state' method to 'scrabble_board.py' so it could alter the state of the cells on the board
+- Added an 'is_occupied' attribute to 'cell' so it can show whn the cell has a letter or not
+- Added new test to verify the new functions.
+
+## CHanged
+- updated and changed places of the method 'place_word' to 'scrabble_board.py' so it works better
+- updated the method 'place_word' on 'scrabble.py' so it can now use the new code implemented

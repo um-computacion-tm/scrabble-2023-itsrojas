@@ -79,6 +79,30 @@ class TestScrabbleGame(unittest.TestCase):
         with self.assertRaises(InvalidWordError):
             scrabble_game.validate_word(word, location, orientation)
 
+    
+    def test_place_word_and_change_state(self):
+        scrabble_game = ScrabbleGame(players_count=2)
+        scrabble_game.next_turn()
+        scrabble_game.current_player.draw_initial_tiles(scrabble_game.bag_tiles)
+
+        word = "HELLO"
+        location = (7, 7)
+        orientation = "H"
+
+        # Crea una instancia de la clase Board
+        scrabble_board = scrabble_game.board
+
+        # Coloca la palabra en el tablero y cambia el estado de las celdas
+        scrabble_board.place_word(word, location, orientation)
+
+        # Verifica que el estado de las celdas haya cambiado a "ocupado"
+        for i, letter in enumerate(word):
+            cell = scrabble_board.grid[location[0]][location[1] + i]
+            self.assertEqual(cell.letter, letter)
+            self.assertTrue(cell.is_occupied)  # Verifica que la celda esté ocupada
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
