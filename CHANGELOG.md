@@ -227,6 +227,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added an 'is_occupied' attribute to 'cell' so it can show whn the cell has a letter or not
 - Added new test to verify the new functions.
 
-## CHanged
+## Changed
 - updated and changed places of the method 'place_word' to 'scrabble_board.py' so it works better
 - updated the method 'place_word' on 'scrabble.py' so it can now use the new code implemented
+
+## [1.1.8] -2023-09-25
+
+## Added
+- Added the method of 'get_word' to 'scrabble.py' so it can recognize the if the word that the player puts exists
+- Imported the program of pyrae to serve as the dictionary for the words
+
+## Known problems
+- There is a problem with the pyrae in that the tests doesn`t recognize the pyrae and it doesn`t allow it to function. I am going to have to search later
+
+## Notes
+- I have been focusing most on solving the pyrae problem, so maybe that part of the code doesn`t work in this version and the 'get_word' is not fully operational for now, so i am going to fix it later. And it may be need an overhoul of that method.
+- So 'get_word' can`t be considered an success yet.

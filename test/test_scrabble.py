@@ -8,6 +8,7 @@ sys.path.insert(0, repo_root)
 import unittest
 from unittest.mock import patch
 
+from pyrae import idle
 from game.scrabble_objects import BagTiles, Tile
 from game.scrabble_board import Board, Cell, SpecialCell
 from game.scrabble_player import Player

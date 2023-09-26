@@ -1,5 +1,6 @@
 import unittest
 
+from pyrae import idle
 from game.scrabble_board import Board
 from game.scrabble_player import Player
 from game.scrabble_objects import BagTiles
@@ -51,22 +52,35 @@ class ScrabbleGame:
         # Si todas las validaciones pasan, coloca la palabra en el tablero y actualiza las letras del jugador.
         self.board.place_word(word, location, orientation)
         player.remove_letters(word)
-
-
-
-
     
     def get_words():
         '''
         Obtener las posibles palabras que se pueden formar, dada una palabra, ubicacion y orientacion 
         Preguntar al usuario, por cada una de esas palabras, las que considera reales
         '''
+        while True:
+            word = input("Ingrese una palabra: ")
+            res = idle.search_by_word(word=word)
+
+            if res:
+            # Si se encuentra una definición, muestra la definición al usuario
+                print("Definición:", res.to_dict()['articles'][0]['definitions'][0]['sentence']['text'])
+                is_real = input("¿Es esta palabra real? (S/N): ").strip().lower()
+
+                if is_real == "s":
+                # Si el usuario la considera real, puedes continuar con esta palabra
+                # Agrega aquí la lógica para continuar con la palabra en tu juego
+                    pass
+                else:
+                    print("Palabra no válida.")
+            else:
+                print("Palabra no encontrada en el diccionario.")
     
     def put_words():
         '''
         Modifica el estado del tablero con las palabras consideradas como correctas
         '''
-
+    # Hay que continuar arreglando la conexion con pyrae.
 
   
 if __name__ == '__main__':
