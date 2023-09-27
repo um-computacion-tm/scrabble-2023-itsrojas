@@ -258,3 +258,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Notes
 - 'skip_turn' it`s incomplete for now and it will be worked later, so for now. It doesn`t have tests and it isn`t called by any objects or method.
+
+## [1.2.0] -2023-09-27
+
+# Added
+- Added pyrae into 'requirements.txt' to work with circleCi,because i forgot to add it last commit.
