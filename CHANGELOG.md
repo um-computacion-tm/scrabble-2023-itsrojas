@@ -243,3 +243,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Notes
 - I have been focusing most on solving the pyrae problem, so maybe that part of the code doesn`t work in this version and the 'get_word' is not fully operational for now, so i am going to fix it later. And it may be need an overhoul of that method.
 - So 'get_word' can`t be considered an success yet.
+
+## [1.1.9] -2023-09-26
+
+## Added
+-Added method 'skip_turn' to 'scrabble.py' so if the player decides or has no other option, they could skip their turn.
+
+## Changed
+- Finished coding the 'get_word' method of 'scrabble.py' so it can now fully recognize words and it works
+- Modified the codes of 'validate_word', 'get_word' and 'place_word' so they con now work together
+
+## Fixed
+- Fixed the problem with pyrae where the app doesn`t work nd now it works perfectly
+
+## Notes
+- 'skip_turn' it`s incomplete for now and it will be worked later, so for now. It doesn`t have tests and it isn`t called by any objects or method.

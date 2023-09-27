@@ -1,6 +1,6 @@
 import unittest
 
-from pyrae import idle
+from pyrae import dle
 from game.scrabble_board import Board
 from game.scrabble_player import Player
 from game.scrabble_objects import BagTiles
@@ -60,7 +60,7 @@ class ScrabbleGame:
         '''
         while True:
             word = input("Ingrese una palabra: ")
-            res = idle.search_by_word(word=word)
+            res = dle.search_by_word(word=word)
 
             if res:
             # Si se encuentra una definición, muestra la definición al usuario

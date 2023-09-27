@@ -8,7 +8,7 @@ sys.path.insert(0, repo_root)
 import unittest
 from unittest.mock import patch
 
-from pyrae import idle
+from pyrae import dle
 from game.scrabble_objects import BagTiles, Tile
 from game.scrabble_board import Board, Cell, SpecialCell
 from game.scrabble_player import Player
@@ -102,6 +102,30 @@ class TestScrabbleGame(unittest.TestCase):
             self.assertEqual(cell.letter, letter)
             self.assertTrue(cell.is_occupied)  # Verifica que la celda esté ocupada
 
+    @patch('builtins.input', return_value='S')
+    def test_get_word_valid_word(self, mock_input):
+        scrabble_game = ScrabbleGame(players_count=2)
+        scrabble_game.next_turn()
+        word = "HOLA"
+        location = (7, 7)
+        orientation = "H"
+        scrabble_game.current_player.board.place_word(word, location, orientation)
+
+        # Assumimos que get_word se llama dentro de validate_word, por lo que probamos validate_word
+        with self.assertRaises(InvalidWordError):
+            scrabble_game.validate_word(word, location, orientation)
+
+    @patch('builtins.input', return_value='N')
+    def test_get_word_invalid_word(self, mock_input):
+        scrabble_game = ScrabbleGame(players_count=2)
+        scrabble_game.next_turn()
+        word = "XYZ"
+        location = (7, 7)
+        orientation = "H"
+
+        # Assumimos que get_word se llama dentro de validate_word, por lo que probamos validate_word
+        with self.assertRaises(InvalidWordError):
+            scrabble_game.validate_word(word, location, orientation)
 
 
 
