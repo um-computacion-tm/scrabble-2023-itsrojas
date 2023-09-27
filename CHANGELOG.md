@@ -263,3 +263,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # Added
 - Added pyrae into 'requirements.txt' to work with circleCi,because i forgot to add it last commit.
+- Added the methods of 'get_letters_count', 'is_word_placement_valid' and 'calculate_word_multiplier' to 'scrabble.py' , 'scrabble_player.py' and 'scrabble_board.py' so the code can be simplified
+
+## Changed
+- Changed some of the code of 'scrabble.py' , 'scrabble_player.py' and 'scrabble_board.py' so the code can be simplified and it could pass code climate.
+
+##Notes
+- The code of 'main.py' said its a little complex to code climate, but the code is the same from the code of slack and i haven`t complete worked with the code and the level of complexity is very little. So i will work on it latter.

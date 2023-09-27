@@ -127,6 +127,8 @@ class TestScrabbleGame(unittest.TestCase):
         with self.assertRaises(InvalidWordError):
             scrabble_game.validate_word(word, location, orientation)
 
+    def test_put_words(self):
+        pass  # Reemplazar luego
 
 
 if __name__ == '__main__':

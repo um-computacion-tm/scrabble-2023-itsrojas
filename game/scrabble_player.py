@@ -29,6 +29,14 @@ class Player:
         self.points += word_value
 
     def has_letters(self, word):
+        letter_count = self.get_letter_count()
+        for letter in word:
+            if letter not in letter_count or letter_count[letter] == 0:
+                return False
+            letter_count[letter] -= 1
+        return True
+
+    def get_letter_count(self):
         letter_count = {}
         for tile in self.tiles:
             if tile.is_wildcard:
@@ -36,12 +44,7 @@ class Player:
             else:
                 letter = tile.letter
                 letter_count[letter] = letter_count.get(letter, 0) + 1
-        for letter in word:
-            if letter not in letter_count or letter_count[letter] == 0:
-                return False
-            letter_count[letter] -= 1
-
-        return True
+        return letter_count    
 
 
 

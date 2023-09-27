@@ -25,37 +25,38 @@ class Board:
             multiplier_type, icon = special_cells[(row, col)]
             self.grid[row][col] = SpecialCell(multiplier=2, multiplier_type=multiplier_type, icon=icon)
     
-    def calculate_word(self, word): # Reducir numeros de estructuras(for o if) o dividir en màs metodos.
+    def calculate_word(self, word):
         total_value = 0
         word_multiplier = 1
 
-        # Calcular el valor total de la palabra y verificar los multiplicadores de palabra individual
         for cell in word:
             letter_value = cell.calculate_value()
             if cell.multiplier_type == 'letter_word' and cell not in self.used_special_cells:
                 letter_value *= cell.word_multiplier
             total_value += letter_value
 
-        # Verificar si alguna celda tiene un multiplicador de palabra global
-        for cell in word:
-            if cell.multiplier_type == 'word' and cell not in self.used_special_cells:
-                word_multiplier *= cell.multiplier
+        word_multiplier = self.calculate_word_multiplier(word)
 
         total_value *= word_multiplier
 
         return total_value
-    
+
+    def calculate_word_multiplier(self, word):
+        word_multiplier = 1
+        for cell in word:
+            if cell.multiplier_type == 'word' and cell not in self.used_special_cells:
+                word_multiplier *= cell.multiplier
+        return word_multiplier
+
     def place_word(self, word, location, orientation):
         row, col = location
-        if orientation == "H":
-            for letter in word:
-                self.grid[row][col].add_letter(letter)
+        for letter in word:
+            self.grid[row][col].add_letter(letter)
+            if orientation == "H":
                 col += 1
-        elif orientation == "V":
-            for letter in word:
-                self.grid[row][col].add_letter(letter)
+            elif orientation == "V":
                 row += 1
-        self.change_state(row, col, letter=word, score=0) 
+        self.change_state(row, col, letter=word, score=0)
 
     def change_state(self, row, col, letter=None, score=0):
         cell = self.grid[row][col]
