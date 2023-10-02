@@ -130,6 +130,25 @@ class TestScrabbleGame(unittest.TestCase):
     def test_put_words(self):
         pass  # Reemplazar luego
 
+    def test_resign_player(self):
+        bag = BagTiles()
+        board = Board()
+        players_count = 3  # Cambia la cantidad de jugadores según tu necesidad
+        game = ScrabbleGame(players_count=players_count)
+
+        # Jugador 1 renuncia
+        game.resign_player(0)
+        self.assertFalse(game.players[0].active)  # Verifica que el jugador 1 esté inactivo
+
+        # Jugador 2 sigue activo
+        self.assertTrue(game.players[1].active)
+
+        # Jugador 3 sigue activo
+        self.assertTrue(game.players[2].active)
+
+        # Prueba con un índice fuera de rango
+        game.resign_player(10)
+
 
 if __name__ == '__main__':
     unittest.main()

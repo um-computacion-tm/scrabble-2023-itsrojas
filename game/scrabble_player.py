@@ -8,6 +8,7 @@ class Player:
         self.points = points
         self.bag_tiles = bag_tiles 
         self.board = board
+        self.active = True
 
     def draw_initial_tiles(self, bag):
         initial_tiles = bag.take(7)

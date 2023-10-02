@@ -261,7 +261,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.0] -2023-09-27
 
-# Added
+## Added
 - Added pyrae into 'requirements.txt' to work with circleCi,because i forgot to add it last commit.
 - Added the methods of 'get_letters_count', 'is_word_placement_valid' and 'calculate_word_multiplier' to 'scrabble.py' , 'scrabble_player.py' and 'scrabble_board.py' so the code can be simplified
 
@@ -270,3 +270,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ##Notes
 - The code of 'main.py' said its a little complex to code climate, but the code is the same from the code of slack and i haven`t complete worked with the code and the level of complexity is very little. So i will work on it latter.
+
+## [1.2.1] -2023-10-01
+
+## Added
+- Added new method to 'scrabble.py' that is 'resign_player' so that a player can abbandon the game without causing problems to the other players.
+- Added an 'active' attribute to the Player class to keep track if the player is in the game or abandoned it
+
+## Changed
+- MOdified the 'main.py' code so that it can works with the pass and resing code
