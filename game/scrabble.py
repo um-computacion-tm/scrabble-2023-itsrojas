@@ -10,18 +10,20 @@ class InvalidWordError(Exception):
 
 
 class ScrabbleGame:
-    def __init__(self, players_count: int):
+    SEVEN_TILES_BONUS = 50
+    def __init__(self, players_count: int, player_names: list):
         self.board = Board()
         self.bag_tiles = BagTiles()
         self.players = []
 
-        for _ in range(players_count):
-            self.players.append(Player(board=self.board, bag_tiles=self.bag_tiles))
+        for i in range(players_count):
+            self.players.append(Player(name=player_names[i], board=self.board, bag_tiles=self.bag_tiles))
 
         self.current_player_index = None
         self.current_player = None
         self.current_word = None
         self.current_turn = 0
+
 
     def next_turn(self):
         if self.current_player_index is None:
@@ -35,7 +37,7 @@ class ScrabbleGame:
     def skip_turn(self):
         self.next_turn()
         
-    def validate_word(self, word, location, orientation): # puede hcer 2 validaciones
+    def validate_word(self, word, location, orientation):
         player = self.current_player
         if not player.has_letters(word):
             raise InvalidWordError("El jugador no tiene las letras necesarias para formar la palabra.")
@@ -45,6 +47,8 @@ class ScrabbleGame:
 
         self.get_words(word, location, orientation)
         player.remove_letters(word)
+        if len(word) == 7:
+            player.update_score(self.SEVEN_TILES_BONUS)
 
     def is_word_placement_valid(self, word, location, orientation):
         row, col = location
@@ -80,13 +84,11 @@ class ScrabbleGame:
         if 0 <= player_index < len(self.players):
             self.players[player_index].active = False
 
+
     def put_words():
         '''
         Modifica el estado del tablero con las palabras consideradas como correctas
         '''
-
-
-
   
 if __name__ == '__main__':
     unittest.main()

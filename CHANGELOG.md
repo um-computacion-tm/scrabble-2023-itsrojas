@@ -278,4 +278,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added an 'active' attribute to the Player class to keep track if the player is in the game or abandoned it
 
 ## Changed
-- MOdified the 'main.py' code so that it can works with the pass and resing code
+- Modified the 'main.py' code so that it can works with the pass and resing code
+
+## [1.2.2] -2023-10-01
+
+## Added
+- Added atribute 'SEVEN_TILES_BONUS' in 'scrabble.py' to give a 50 points bonus for the player that uses 7 tiles in on word according to the rules of the game
+- Added in 'scrabble_player.py', a name parameter to  specify the player's name when creating a play
+- 'main.py' now allows entering player names at the start of the game, instead of automatically assigning numeric identifiers.
+- Added a new test to verify the changes.
+
+## Changes
+- Changed the ScrabbleGame constructor from 'scrabble.py' to now use the specified names
+- Updated the 'validate_word' method to verify if the player used the 7 tiles and if its correct , it now grants the 15 points bonus.
+- Changed the printing of the active player's name in 'word_is_real' to reflect the name of the player.
+- CHanged some parts of the code of 'scrabble.py' to not cause many problems with the bonus points and the names
+

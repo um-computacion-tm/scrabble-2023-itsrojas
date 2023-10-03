@@ -18,7 +18,8 @@ from game.scrabble import ScrabbleGame, InvalidWordError
 class TestScrabbleGame(unittest.TestCase):
     def test_init(self):
         board = Board()
-        scrabble_game = ScrabbleGame(players_count=3)
+        player_names = ["Jugador1", "Jugador2", "Jugador3"]
+        scrabble_game = ScrabbleGame(players_count=3, player_names=player_names)
         self.assertIsNotNone(scrabble_game.board)
         self.assertEqual(len(scrabble_game.players), 3)
         self.assertIsNotNone(scrabble_game.bag_tiles)
@@ -31,14 +32,23 @@ class TestScrabbleGame(unittest.TestCase):
             15,
         )
 
+    def setUp(self):
+        player_names = ["Jugador1", "Jugador2"]
+        self.scrabble_game = ScrabbleGame(players_count=2, player_names=player_names)
+        self.scrabble_game.next_turn()
+        self.scrabble_game.current_player.draw_initial_tiles(self.scrabble_game.bag_tiles)
+        self.scrabble_game.current_player.board = self.scrabble_game.board
+
     def test_next_turn_when_game_is_starting(self):
-        scrabble_game = ScrabbleGame(players_count=3)
+        player_names = ["Jugador1", "Jugador2", "Jugador3"]
+        scrabble_game = ScrabbleGame(players_count=3, player_names=player_names)
         scrabble_game.next_turn()
-        self.assertEqual(scrabble_game.current_player, scrabble_game.players[0])
+        self.assertEqual(scrabble_game.current_player.name, "Jugador1")
 
     def test_next_turn_when_player_is_not_the_first(self):
         # Validar que luego del jugador 0, le toca al jugador 1
-        scrabble_game = ScrabbleGame(players_count=3)
+        player_names = ["Jugador1", "Jugador2", "Jugador3"]
+        scrabble_game = ScrabbleGame(players_count=3, player_names=player_names)
         scrabble_game.current_player_index = 0  # Establece el jugador actual al jugador 0
 
         scrabble_game.next_turn()
@@ -46,16 +56,15 @@ class TestScrabbleGame(unittest.TestCase):
         assert scrabble_game.current_player_index == 1
 
     def test_next_turn_when_player_is_last(self):
-        # Suponiendo que tenemos 3 jugadores, luego del jugador 3, le toca al jugador 1
-        scrabble_game = ScrabbleGame(players_count=3)
+        player_names = ["Jugador1", "Jugador2", "Jugador3"]
+        scrabble_game = ScrabbleGame(players_count=3, player_names=player_names)
         scrabble_game.current_player = scrabble_game.players[2]
-
         scrabble_game.next_turn()
-
-        assert scrabble_game.current_player == scrabble_game.players[0]
+        self.assertEqual(scrabble_game.current_player.name, "Jugador1")
 
     def test_word_inside_board(self):
-        scrabble_game = ScrabbleGame(players_count=3)
+        player_names = ["Jugador1", "Jugador2", "Jugador3"]
+        scrabble_game = ScrabbleGame(players_count=3, player_names=player_names)
         scrabble_game.next_turn()  # Asegúrate de establecer el jugador actual antes de dibujar las letras iniciales
         scrabble_game.current_player.draw_initial_tiles(scrabble_game.bag_tiles)
 
@@ -68,7 +77,8 @@ class TestScrabbleGame(unittest.TestCase):
             scrabble_game.validate_word(word, location, orientation)
 
     def test_word_out_of_board(self):
-        scrabble_game = ScrabbleGame(players_count=3)
+        player_names = ["Jugador1", "Jugador2", "Jugador3"]
+        scrabble_game = ScrabbleGame(players_count=3, player_names=player_names)
         scrabble_game.next_turn()  # Asegúrate de establecer el jugador actual antes de dibujar las letras iniciales
         scrabble_game.current_player.draw_initial_tiles(scrabble_game.bag_tiles)
 
@@ -82,7 +92,8 @@ class TestScrabbleGame(unittest.TestCase):
 
     
     def test_place_word_and_change_state(self):
-        scrabble_game = ScrabbleGame(players_count=2)
+        player_names = ["Jugador1", "Jugador2"]
+        scrabble_game = ScrabbleGame(players_count=2, player_names=player_names)
         scrabble_game.next_turn()
         scrabble_game.current_player.draw_initial_tiles(scrabble_game.bag_tiles)
 
@@ -104,7 +115,8 @@ class TestScrabbleGame(unittest.TestCase):
 
     @patch('builtins.input', return_value='S')
     def test_get_word_valid_word(self, mock_input):
-        scrabble_game = ScrabbleGame(players_count=2)
+        player_names = ["Jugador1", "Jugador2"]
+        scrabble_game = ScrabbleGame(players_count=2, player_names=player_names)
         scrabble_game.next_turn()
         word = "HOLA"
         location = (7, 7)
@@ -117,7 +129,8 @@ class TestScrabbleGame(unittest.TestCase):
 
     @patch('builtins.input', return_value='N')
     def test_get_word_invalid_word(self, mock_input):
-        scrabble_game = ScrabbleGame(players_count=2)
+        player_names = ["Jugador1", "Jugador2"]
+        scrabble_game = ScrabbleGame(players_count=2, player_names=player_names)
         scrabble_game.next_turn()
         word = "XYZ"
         location = (7, 7)
@@ -134,7 +147,7 @@ class TestScrabbleGame(unittest.TestCase):
         bag = BagTiles()
         board = Board()
         players_count = 3  # Cambia la cantidad de jugadores según tu necesidad
-        game = ScrabbleGame(players_count=players_count)
+        game = ScrabbleGame(players_count=players_count, player_names=["Jugador1", "Jugador2", "Jugador3"])
 
         # Jugador 1 renuncia
         game.resign_player(0)
@@ -148,6 +161,23 @@ class TestScrabbleGame(unittest.TestCase):
 
         # Prueba con un índice fuera de rango
         game.resign_player(10)
+
+def test_seven_tiles_bonus(self):
+        player_names = ["Jugador1", "Jugador2"]
+        scrabble_game = ScrabbleGame(players_count=2, player_names=player_names)
+        scrabble_game.next_turn()
+        scrabble_game.current_player.draw_initial_tiles(scrabble_game.bag_tiles)
+
+        # Jugar exactamente siete fichas en un turno
+        word = "PALABRA"
+        location = (7, 7)
+        orientation = "H"
+
+        # Coloca la palabra en el tablero
+        scrabble_game.validate_word(word, location, orientation)
+
+        # Verifica que el jugador haya recibido el bono de 50 puntos
+        self.assertEqual(scrabble_game.current_player.points, ScrabbleGame.SEVEN_TILES_BONUS)
 
 
 if __name__ == '__main__':
