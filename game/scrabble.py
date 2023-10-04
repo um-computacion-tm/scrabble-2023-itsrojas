@@ -33,13 +33,24 @@ class ScrabbleGame:
             self.current_player_index = (self.current_player_index + 1) % len(self.players)
 
         self.current_player = self.players[self.current_player_index]
+        Player.refill_tiles
 
     def skip_turn(self):
         self.next_turn()
+
+    def check_victory(self):
+        active_players = [player for player in self.players if player.active]
+
+        if len(active_players) == 1:
+            winner = active_players[0]
+            print(f"¡{winner.name} ha ganado el juego con {winner.points} puntos!")
+            return True
+
+        return False
         
     def validate_word(self, word, location, orientation):
         player = self.current_player
-        if not player.has_letters(word):
+        if not player.has_letters(word.lower()):
             raise InvalidWordError("El jugador no tiene las letras necesarias para formar la palabra.")
 
         if not self.is_word_placement_valid(word, location, orientation):

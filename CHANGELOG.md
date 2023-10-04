@@ -280,7 +280,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Changed
 - Modified the 'main.py' code so that it can works with the pass and resing code
 
-## [1.2.2] -2023-10-01
+## [1.2.2] -2023-10-02
 
 ## Added
 - Added atribute 'SEVEN_TILES_BONUS' in 'scrabble.py' to give a 50 points bonus for the player that uses 7 tiles in on word according to the rules of the game
@@ -294,3 +294,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the printing of the active player's name in 'word_is_real' to reflect the name of the player.
 - CHanged some parts of the code of 'scrabble.py' to not cause many problems with the bonus points and the names
 
+## [1.2.2] -2023-10-03
+
+## Added
+- Added 'check_victory' method to 'scrabble.py' so it can give a victory to the plaer if they are the only left, it`s still incomplete.
+- Added the 'refill_tiles' method on 'scrabble_player.py' so at the end of each turn all the player get 7 tiles in total
+- Added new test to verify the new implementations
+
+## Changed
+- Modified the codes of 'scrabble.py', 'scrabble_player.py' and 'main.py' to work with the new code
+
+## Notes
+-check victory is incomplete for now and refill_tiles is going to be adapted to the player module si it may not work for now

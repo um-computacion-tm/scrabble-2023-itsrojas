@@ -16,6 +16,11 @@ class Player:
             initial_letters = bag.take(7)
         self.add_tiles(initial_letters)
 
+    def refill_tiles(self):
+        while len(self.tiles) < 7:
+            new_tiles = self.bag_tiles.take(7 - len(self.tiles))
+            self.add_tiles(new_tiles)
+
     def add_tiles(self, tiles):
         self.tiles.extend(tiles)
 

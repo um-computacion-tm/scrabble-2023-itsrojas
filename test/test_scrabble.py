@@ -33,11 +33,13 @@ class TestScrabbleGame(unittest.TestCase):
         )
 
     def setUp(self):
+        # Mueve la creación de la instancia de ScrabbleGame a la función setUp
         player_names = ["Jugador1", "Jugador2"]
-        self.scrabble_game = ScrabbleGame(players_count=2, player_names=player_names)
-        self.scrabble_game.next_turn()
-        self.scrabble_game.current_player.draw_initial_tiles(self.scrabble_game.bag_tiles)
-        self.scrabble_game.current_player.board = self.scrabble_game.board
+        self.game = ScrabbleGame(players_count=2, player_names=player_names)
+        self.game.next_turn()
+        self.game.current_player.draw_initial_tiles(self.game.bag_tiles)
+        self.game.current_player.board = self.game.board
+
 
     def test_next_turn_when_game_is_starting(self):
         player_names = ["Jugador1", "Jugador2", "Jugador3"]
@@ -162,22 +164,55 @@ class TestScrabbleGame(unittest.TestCase):
         # Prueba con un índice fuera de rango
         game.resign_player(10)
 
-def test_seven_tiles_bonus(self):
+    def test_seven_tiles_bonus(self):
         player_names = ["Jugador1", "Jugador2"]
         scrabble_game = ScrabbleGame(players_count=2, player_names=player_names)
         scrabble_game.next_turn()
-        scrabble_game.current_player.draw_initial_tiles(scrabble_game.bag_tiles)
 
         # Jugar exactamente siete fichas en un turno
         word = "PALABRA"
         location = (7, 7)
         orientation = "H"
 
+        # Asegúrate de que el jugador tenga las fichas necesarias antes de jugar
+        scrabble_game.current_player.tiles = ["P", "A", "L", "A", "B", "R", "A"]
+
         # Coloca la palabra en el tablero
         scrabble_game.validate_word(word, location, orientation)
 
         # Verifica que el jugador haya recibido el bono de 50 puntos
         self.assertEqual(scrabble_game.current_player.points, ScrabbleGame.SEVEN_TILES_BONUS)
+
+    def test_refill_tiles(self):
+        # Verifica que al final del turno se rellenan las fichas del jugador
+        player = self.game.current_player
+        initial_tile_count = len(player.tiles)
+
+        # Llama a la función para rellenar las fichas
+        self.game.next_turn()  # Llama a next_turn para avanzar al siguiente turno
+
+        # Verifica que el jugador tenga 7 fichas al final del turno
+        self.assertEqual(len(player.tiles), 7)
+
+    def test_check_victory(self):
+    # Verifica la condición de victoria en el juego
+        player1 = self.game.players[0]
+        player2 = self.game.players[1]
+
+        # Establece el puntaje de un jugador para ganar
+        player1.update_score(100)
+
+        # Verifica que la función de check_victory identifica correctamente al ganador
+        self.assertTrue(self.game.check_victory())
+
+        # Verifica que el atributo 'winner' sea igual al jugador 1
+        self.assertEqual(self.game.winner, player1)
+
+        # Verifica que la función no declare ganador si no se cumple la condición
+        player1.update_score(99)  # Cambia el puntaje por debajo de la condición de victoria
+        self.assertFalse(self.game.check_victory())
+        self.assertIsNone(self.game.winner)
+
 
 
 if __name__ == '__main__':

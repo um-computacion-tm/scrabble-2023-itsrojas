@@ -26,6 +26,8 @@ def main():
         if not scrabble_game.current_player.active:
             print(f"El jugador {scrabble_game.current_player.name} ha renunciado.")
             scrabble_game.next_turn()
+            if ScrabbleGame.check_victory():
+                break
             continue
 
         print(f"Turno del jugador {scrabble_game.current_player.id}, {scrabble_game.current_player.name} - Puntaje actual: {scrabble_game.current_player.score}")
@@ -49,3 +51,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
