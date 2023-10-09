@@ -4,36 +4,35 @@ from pyrae import dle
 from game.scrabble_board import Board
 from game.scrabble_player import Player
 from game.scrabble_objects import BagTiles
+from game.dictionary import dictionary_word
 
 class InvalidWordError(Exception):
     pass
+class InvalidPlayersCountException(Exception):
+    pass
 
-
+SEVEN_TILES_BONUS = 50
 class ScrabbleGame:
-    SEVEN_TILES_BONUS = 50
-    def __init__(self, players_count: int, player_names: list):
+    def __init__(self, players_count: int):
+        self._validate_players_count(players_count)
         self.board = Board()
         self.bag_tiles = BagTiles()
-        self.players = []
+        self.players = [Player(id=index, bag_tiles=self.bag_tiles) for index in range(players_count)]
+        self.current_player = 0
 
-        for i in range(players_count):
-            self.players.append(Player(name=player_names[i], board=self.board, bag_tiles=self.bag_tiles))
+    def _validate_players_count(self, players_count: int):
+        if players_count < 2 or players_count > 4:
+            raise InvalidPlayersCountException("El número de jugadores debe estar entre 2 y 4")
 
-        self.current_player_index = None
-        self.current_player = None
-        self.current_word = None
-        self.current_turn = 0
-
+    def play(self, word, location, orientation):
+        self.validate_word(word, location, orientation)
+        words = self.board.put_words(word, location, orientation)
+        total = self.calculate_words_value(words)
+        self.players[self.current_player].score += total
+        self.next_turn()
 
     def next_turn(self):
-        if self.current_player_index is None:
-            self.current_player_index = 0
-        else:
-            # Calcula el índice del siguiente jugador circularmente
-            self.current_player_index = (self.current_player_index + 1) % len(self.players)
-
-        self.current_player = self.players[self.current_player_index]
-        Player.refill_tiles
+        self.current_player = (self.current_player + 1) % len(self.players)
 
     def skip_turn(self):
         self.next_turn()
@@ -49,57 +48,24 @@ class ScrabbleGame:
         return False
         
     def validate_word(self, word, location, orientation):
-        player = self.current_player
+        player = self.players[self.current_player]
+
         if not player.has_letters(word.lower()):
             raise InvalidWordError("El jugador no tiene las letras necesarias para formar la palabra.")
 
-        if not self.is_word_placement_valid(word, location, orientation):
+        if not self.board.validate_word_inside_board(word, location, orientation):
             raise InvalidWordError("La palabra no cabe en el tablero o la orientación es incorrecta.")
 
-        self.get_words(word, location, orientation)
+        if not dictionary_word(word):
+            raise InvalidWordError("La palabra no existe en el diccionario.")
         player.remove_letters(word)
+
         if len(word) == 7:
-            player.update_score(self.SEVEN_TILES_BONUS)
+            player.update_score(SEVEN_TILES_BONUS)
 
-    def is_word_placement_valid(self, word, location, orientation):
-        row, col = location
-        if orientation == "H":
-            return col + len(word) <= 15
-        elif orientation == "V":
-            return row + len(word) <= 15
-        return False
-
-    def get_words(self, word, location, orientation):
-        while True:
-            res = dle.search_by_word(word=word)
-
-            if res:
-                print("Definición:", res.to_dict()['articles'][0]['definitions'][0]['sentence']['text'])
-                is_real = input("¿Es esta palabra real? (S/N): ").strip().lower()
-
-            # Llama a word_is_real para determinar si la palabra es real
-                if self.word_is_real(is_real, word, location, orientation):
-                    return  # Sal del bucle si la palabra es real
-            else:
-                print("Palabra no encontrada en el diccionario.")
-
-    def word_is_real(self, is_real, word, location, orientation):
-        if is_real == "s":
-            self.current_player.board.place_word(word, location, orientation)
-            return True  # Devuelve True si la palabra es real y se coloca en el tablero
-        else:
-            print("Palabra no válida.")
-            return False  
-        
     def resign_player(self, player_index):
         if 0 <= player_index < len(self.players):
             self.players[player_index].active = False
 
-
-    def put_words():
-        '''
-        Modifica el estado del tablero con las palabras consideradas como correctas
-        '''
-  
 if __name__ == '__main__':
     unittest.main()

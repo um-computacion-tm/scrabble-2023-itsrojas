@@ -35,7 +35,7 @@ class TestScrabbleGame(unittest.TestCase):
     def setUp(self):
         # Mueve la creación de la instancia de ScrabbleGame a la función setUp
         player_names = ["Jugador1", "Jugador2"]
-        self.game = ScrabbleGame(players_count=2, player_names=player_names)
+        self.game = ScrabbleGame(players_count=2)
         self.game.next_turn()
         self.game.current_player.draw_initial_tiles(self.game.bag_tiles)
         self.game.current_player.board = self.game.board

@@ -1,13 +1,21 @@
 from game.scrabble_objects import Tile
+from game.scrabble_cells import Cell, SpecialCell
 import unittest
 
 class Board:
-    def __init__(self):
+    def __init__(self, fill_with=None):
+        if fill_with is None:
+            fill_with = " " * (15 * 15)
         self.grid = [
-            [Cell(multiplier=1, multiplier_type='') for _ in range(15)]  
-            for _ in range(15)
+            [
+                Cell(
+                    letter=fill_with[(row * 15) + col] if fill_with[(row * 15) + col] != " " else None,
+                    value=1
+                )
+                for col in range(15)
+            ]
+            for row in range(15)
         ]
-        self.define_special_cells()
         self.used_special_cells = set()
 
     def define_special_cells(self):
@@ -23,30 +31,52 @@ class Board:
         }
         for row, col in special_cells:
             multiplier_type, icon = special_cells[(row, col)]
-            self.grid[row][col] = SpecialCell(multiplier=2, multiplier_type=multiplier_type, icon=icon)
+            self.grid[row][col] = SpecialCell(
+                multiplier=self.get_multiplier(row, col),  # Ajusta esta línea
+                multiplier_type=multiplier_type,
+                icon=icon,
+            )
     
-    def calculate_word(self, word):
-        total_value = 0
-        word_multiplier = 1
+    def get_multiplier(self, row, col):
+        # Implementa la lógica para obtener el multiplicador en función de la posición (row, col)
+        # Por ejemplo, puedes implementar aquí las reglas del juego Scrabble.
+        # Aquí proporciono un ejemplo simple en el que se devuelven multiplicadores predeterminados.
+        if (row, col) in [(0, 0), (7, 0), (14, 0), (0, 7), (14, 7), (0, 14), (7, 14), (14, 14)]:
+            return 3  # Multiplicador de palabra x3 en las esquinas
+        elif (row, col) in [(1, 1), (2, 2), (3, 3), (4, 4), (1, 13), (2, 12), (3, 11), (4, 10),
+                            (10, 4), (11, 3), (12, 2), (13, 1), (10, 10), (11, 11), (12, 12), (13, 13)]:
+            return 2  # Multiplicador de palabra x2 en las posiciones indicadas
+        elif (row, col) in [(1, 5), (1, 9), (5, 1), (5, 5), (5, 9), (5, 13), (9, 1), (9, 5), (9, 9), (9, 13),
+                            (13, 5), (13, 9)]:
+            return 3  # Multiplicador de letra x3 en las posiciones indicadas
+        elif (row, col) in [(0, 3), (0, 12), (2, 6), (2, 8), (3, 0), (3, 7), (3, 14), (6, 2),
+                            (6, 6), (6, 8), (6, 12), (7, 3), (7, 11), (8, 2), (8, 6), (8, 8), (8, 12),
+                            (11, 0), (11, 7), (11, 14), (12, 6), (12, 8), (14, 3), (14, 11)]:
+            return 2  # Multiplicador de letra x2 en las posiciones indicadas
+        else:
+            return 1
 
+
+    def validate_word_inside_board(self, word, location, orientation):
+        row, col = location
+        if orientation == "H":
+            return col + len(word) <= 15
+        elif orientation == "V":
+            return row + len(word) <= 15
+        return False
+
+    def calculate_word_value(self, word):
+        value = 0
+        multiplier_word = 1
         for cell in word:
-            letter_value = cell.calculate_value()
-            if cell.multiplier_type == 'letter_word' and cell not in self.used_special_cells:
-                letter_value *= cell.word_multiplier
-            total_value += letter_value
-
-        word_multiplier = self.calculate_word_multiplier(word)
-
-        total_value *= word_multiplier
-
-        return total_value
-
-    def calculate_word_multiplier(self, word):
-        word_multiplier = 1
-        for cell in word:
-            if cell.multiplier_type == 'word' and cell not in self.used_special_cells:
-                word_multiplier *= cell.multiplier
-        return word_multiplier
+            if cell.is_occupied:
+                cell_value = cell.calculate_value()
+                if cell.multiplier_type == "letter":
+                    cell_value *= cell.multiplier
+                value += cell_value
+                if cell.multiplier_type == "word":
+                    multiplier_word *= cell.multiplier
+        return value * multiplier_word
 
     def place_word(self, word, location, orientation):
         row, col = location
@@ -63,35 +93,5 @@ class Board:
         cell.letter = letter
         cell.score = score
         cell.is_occupied = True
-    
-
-class Cell:
-    def __init__(self, letter=None, multiplier=1, multiplier_type='', word_multiplier=1):
-        self.multiplier = multiplier
-        self.multiplier_type = multiplier_type
-        self.word_multiplier = word_multiplier
-        self.letter = letter
-        self.is_occupied = False 
-
-    def add_letter(self, letter: Tile):
-        self.letter = letter
-        self.is_occupied = True 
-
-    def calculate_value(self):
-        if self.letter is None:
-            return 0
-        if self.multiplier_type == 'letter':
-            return self.letter.value * self.multiplier
-        else:
-            return self.letter.value
-
-    def is_multi(self):
-        return self.multiplier_type in ['x2_letter', 'x3_letter', 'x2_word', 'x3_word']
-
-    
-class SpecialCell(Cell):
-    def __init__(self, multiplier, multiplier_type, icon):
-        super().__init__(multiplier, multiplier_type)
-        self.icon = icon
 
 

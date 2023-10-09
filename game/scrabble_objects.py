@@ -11,7 +11,10 @@ class Tile:
         self.letter = letter
         self.value = value
         self.is_wildcard = True
-
+    
+    def __repr__(self):
+        return f"{self.letter}:{self.value}"
+    
 class BagTiles:
     def __init__(self):
         self.tiles = [

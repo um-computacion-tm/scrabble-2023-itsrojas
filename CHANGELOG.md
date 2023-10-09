@@ -306,3 +306,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Notes
 -check victory is incomplete for now and refill_tiles is going to be adapted to the player module si it may not work for now
+
+## [1.2.3] -2023-11-08
+
+##Added:
+#scrabble.py:
+
+- Added the import of dictionary_word from dictionary.py to check if a word exists in the dictionary.
+- Added a new method _validate_players_count to validate the number of players.
+- Introduced a dictionary word validation feature in the validate_word method.
+- Added resign_player method to set a player as inactive.
+#scrabble_player.py:
+
+- Added the refill_tiles method to refill a player's tiles after placing a word.
+#scrabble_board.py:
+- Added get_multiplier method to calculate cell multipliers.
+- Added validate_word_inside_board method to check word placement validity.
+#scrabble_cells.py:
+- Added cells.py with their respective methods and attributes
+#main.py:
+
+- Updated to check for game victory after each turn.
+#dictionary.py:
+
+- Added dictionary.py
+
+##Changed:
+# scrabble.py:
+- Removed player_names from the constructor and simplified player creation.
+- Updated game logic to handle turns and word placement more efficiently.
+- Moved the SEVEN_TILES_BONUS constant outside of the class as a global constant.
+# scrabble_board.py:
+
+- Updated define_special_cells to use a dictionary for special cell locations.
+##Moved:
+#scrabble.py:
+- Moved the SEVEN_TILES_BONUS constant outside of the class as a global constant.
+##Dropped:
+
+#scrabble.py:
+- Dropped unnecessary code for calculating the current player's index in the next_turn method.
+- Removed the put_words method, as it is not implemented.
+
+##Known errors
+- due to mayor overhaul of the code, many test are going to be rewritten to fit the code but i dind`t have time to finish and fixing them so they would be fixed tomorrow
+
+## Note
+- I am sorry proffesor for the mess
