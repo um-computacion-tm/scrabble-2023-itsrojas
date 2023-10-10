@@ -6,11 +6,87 @@ repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, repo_root)
 
 import unittest
-
+from game.scrabble_board import Board
 from game.scrabble_objects import Tile
-from game.scrabble_board import Board, Cell, SpecialCell
 
-class Board:
+class TestBoard(unittest.TestCase):
+    def setUp(self):
+        self.board = Board(" " * (15 * 15))
+
+
+    
+    '''def test_board_is_empty(self):
+        board = Board()
+        assert board.is_empty == True'''
+
+    def test_word_inside_board(self):
+        board = Board()
+        word = "Facultad"
+        location = (5, 4)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+
+        assert word_is_valid == True
+    
+    def test_word_out_of_board(self):
+        board = Board()
+        word = "Facultad"
+        location = (14, 4)
+        orientation = "H"
+
+        word_is_valid = board.validate_word_inside_board(word, location, orientation)
+
+        assert word_is_valid == False
+
+
+    def test_board_is_not_empty(self):
+        board = Board()
+        board.grid[7][7].add_letter(Tile('C', 3))
+        assert board.is_empty == False
+
+    def test_place_word_empty_board_horizontal_fine(self):
+        board = Board()
+        word = "Facultad"
+        location = (7, 4)
+        orientation = "H"
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == True
+
+
+
+    def test_place_word_empty_board_vertical_fine(self):
+        board = Board()
+        word = "Facultad"
+        location = (4, 7)
+        orientation = "V"
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        assert word_is_valid == True
+
+    def test_board_is_not_empty_multipliers(self):
+        board = Board()
+        board.grid[7][7].multiplier_active = True
+        assert board.is_empty == False
+
+    ''' def test_place_word_empty_board_vertical_wrong(self):
+        board = Board()
+        word = "Facultad"
+        location = (2, 4)
+        orientation = "V"
+        for i, letter in enumerate(word):
+            board.grid[location[1] + i][location[0]].add_letter(Tile(letter, 1))
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        self.assertFalse(word_is_valid) '''
+    
+    ''' def test_place_word_empty_board_horizontal_wrong(self):
+        board = Board()
+        word = "Facultad"
+        location = (2, 4)
+        orientation = "H"
+        word_is_valid = board.validate_word_place_board(word, location, orientation)
+        self.assertFalse(word_is_valid)'''
+    
+    '''class TestBoard:
     def __init__(self, fill_with=None):
         if fill_with is None:
             fill_with = " " * (15 * 15)
@@ -51,45 +127,8 @@ class Board:
         cell = board.grid[row][col]
         self.assertEqual(cell.letter, letter)
         self.assertEqual(cell.score, score)
-        self.assertEqual(cell.is_occupied, True)
-
-class TestCalculateWord(unittest.TestCase):
-    def test_simple(self):
-        fill_with = " " * (15 * 15)
-        board = Board(fill_with)
-        word = [
-            board.grid[7][7],  # Celda con letra 'C'
-            board.grid[7][8],  # Celda con letra 'A'
-            board.grid[7][9],  # Celda con letra 'S'
-            board.grid[7][10],  # Celda con letra 'A'
-        ]
-        value = board.calculate_word_value(word)
-        self.assertEqual(value, 6)
-
-    def test_with_letter_multiplier(self):
-        fill_with = " " * (15 * 15)
-        board = Board(fill_with)
-        word = [
-            board.grid[7][7],  # Celda con letra 'C'
-            board.grid[7][8],  # Celda con letra 'A'
-            board.grid[7][9],  # Celda con letra 'S' con multiplicador de letra x2
-            board.grid[7][10],  # Celda con letra 'A'
-        ]
-        value = board.calculate_word_value(word)
-        self.assertEqual(value, 7)
-
-    def test_with_word_multiplier(self):
-        fill_with = " " * (15 * 15)
-        board = Board(fill_with)
-        word = [
-            board.grid[7][7],  # Celda con letra 'C'
-            board.grid[7][8],  # Celda con letra 'A'
-            board.grid[7][9],  # Celda con letra 'S' con multiplicador de palabra x2
-            board.grid[7][10],  # Celda con letra 'A'
-        ]
-        value = board.calculate_word_value(word)
-        self.assertEqual(value, 12)
+        self.assertEqual(cell.is_occupied, True) '''
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

@@ -1,7 +1,14 @@
-import unittest
+import sys
+import os
 
-from game.scrabble_cells import Cell, SpecialCell
-from game.scrabble_player import Tile
+repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+sys.path.insert(0, repo_root)
+
+import unittest
+from game.scrabble_cells import Cell
+from game.scrabble_objects import Tile
+
 
 class TestCell(unittest.TestCase):
     def test_init(self):
@@ -48,12 +55,7 @@ class TestCell(unittest.TestCase):
             cell.calculate_value(),
             3,
         )
-    
-    def test_with_word_multiplayer(self):
-        cell = Cell
-        word = [
-            cell(multiplier = 3,
-                 multiplier_type='letter',
-                 ),
 
-        ]
+
+if __name__ == '__main__':
+    unittest.main()

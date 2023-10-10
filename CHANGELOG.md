@@ -309,29 +309,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.3] -2023-11-08
 
-##Added:
-#scrabble.py:
+## Added:
+
+# scrabble.py:
 
 - Added the import of dictionary_word from dictionary.py to check if a word exists in the dictionary.
 - Added a new method _validate_players_count to validate the number of players.
 - Introduced a dictionary word validation feature in the validate_word method.
 - Added resign_player method to set a player as inactive.
-#scrabble_player.py:
+# scrabble_player.py:
 
 - Added the refill_tiles method to refill a player's tiles after placing a word.
-#scrabble_board.py:
+# scrabble_board.py:
 - Added get_multiplier method to calculate cell multipliers.
 - Added validate_word_inside_board method to check word placement validity.
-#scrabble_cells.py:
+# scrabble_cells.py:
 - Added cells.py with their respective methods and attributes
-#main.py:
+# main.py:
 
 - Updated to check for game victory after each turn.
-#dictionary.py:
+# dictionary.py:
 
 - Added dictionary.py
 
-##Changed:
+## Changed:
+
 # scrabble.py:
 - Removed player_names from the constructor and simplified player creation.
 - Updated game logic to handle turns and word placement more efficiently.
@@ -339,17 +341,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 # scrabble_board.py:
 
 - Updated define_special_cells to use a dictionary for special cell locations.
-##Moved:
-#scrabble.py:
-- Moved the SEVEN_TILES_BONUS constant outside of the class as a global constant.
-##Dropped:
+## Moved:
 
-#scrabble.py:
+# scrabble.py:
+- Moved the SEVEN_TILES_BONUS constant outside of the class as a global constant.
+
+## Dropped:
+
+# scrabble.py:
 - Dropped unnecessary code for calculating the current player's index in the next_turn method.
 - Removed the put_words method, as it is not implemented.
 
-##Known errors
+## Known errors
 - due to mayor overhaul of the code, many test are going to be rewritten to fit the code but i dind`t have time to finish and fixing them so they would be fixed tomorrow
 
 ## Note
 - I am sorry proffesor for the mess
+
+## [1.2.4] -2023-11-09
+
+## Added:
+
+- Added a calculate_value method to the Tile class in scrabble_objects.py to calculate the value of a tile.
+- Added 'is_empty' property to 'scrabble_board.py' so it can detect the game when the board and the cells are empty
+- Added the 'get_multiplier' and 'get_multiplier_type' methods in the Cell class so that in this method the special cells could be identified and not in board
+- Added the '__repr__' method in 'scrabble_cells.py' and 'scrabble_objects.py' to start with the graphic representation
+
+## Changed:
+
+- Updated the Board class in scrabble_board.py to use the new Tile class when filling the board.
+- Replaced the calculate_value method in the Cell class in scrabble_cells.py with a calculate_value method that considers the tile's value and multiplier.
+- Modified the codes of 'place_word' and 'validate_word' and moved them to 'scrabble_board', and have them work the two directly on board
+
+## Dropped:
+- Removed the way of getting the multiplier cells in scrabble_board.py so it could be accesed directly from the cell class
+- 'specialcell' class is going to be removed if it is an easer way to directly use the Cell class
+
+## Notes:
+
+- Since now many parts of the code will begin to have ''' ''' and that means that that code is "quarantine" that means that i put the code in a halt until id decided to put them back in the code  beacuse it gives error or because it is usseles code for now, those codes are in risk to be dropped.
+- Sorry proffesor for the last two commits and changelogs because for the past week i have been trying to merge both my code with the code of the proffesors in one big commit, but i messed it up completely with my code and it is now a chaos. I am searching for some way to download a previous commit code so i can fix my mistake.
+- But for now i have been remaking and optimizing my code so i can fix this problem i have put myself in, so these new commits will be of more fixing my mistake of the last commit so i am sorry if many of the code now has broken or if i don`t add very significal thinks for my mistake.
+- So for now i am going to try to fix my fault and try to make my code more similar to the proffesor codes, once again. I am sorry for these last commits.

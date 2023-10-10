@@ -5,15 +5,16 @@ class Tile:
     def __init__(self, letter, value):
         self.letter = letter
         self.value = value
-        self.is_wildcard = False
 
     def wildcard_tile(self, letter, value):
         self.letter = letter
         self.value = value
-        self.is_wildcard = True
-    
+
     def __repr__(self):
         return f"{self.letter}:{self.value}"
+    
+    def calculate_value(self):
+        return self.value
     
 class BagTiles:
     def __init__(self):

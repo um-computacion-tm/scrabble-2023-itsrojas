@@ -27,7 +27,7 @@ class ScrabbleGame:
     def play(self, word, location, orientation):
         self.validate_word(word, location, orientation)
         words = self.board.put_words(word, location, orientation)
-        total = self.calculate_words_value(words)
+        total = self.calculate_word_value(words)
         self.players[self.current_player].score += total
         self.next_turn()
 
