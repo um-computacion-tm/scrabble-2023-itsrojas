@@ -5,23 +5,19 @@ class Cell:
         self,
         multiplier=1,
         multiplier_type='',
-        tile=None,
+        letter=None,  
         multiplier_active=True,
     ):
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
         self.multiplier_active = multiplier_active
-        self.tile = tile
+        self.letter = letter
+        self.used = False  
 
-    def __repr__(self):
-        if self.tile:
-            return repr(self.tile)
-        if self.multiplier > 1:
-            return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
-        else:
-            return '   '
-        
-    def add_letter(self, letter:Tile):
+    def deactivate_multiplier(self):
+        self.multiplier_active = False
+
+    def add_letter(self, letter: Tile):
         self.letter = letter
 
     def calculate_value(self):
@@ -31,6 +27,14 @@ class Cell:
             return self.letter.value * self.multiplier
         else:
             return self.letter.value
+
+    def __repr__(self):
+        if self.letter:
+            return repr(self.letter)
+        if self.multiplier > 1:
+            return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
+        else:
+            return '   '
         
     def get_multiplier(row, col):
         dl_coordinates = [(4, 1), (12, 1), (1, 4), (8, 4), (15, 4), (3, 7), (7, 7), (9, 7), (13, 7), (4, 10), (12, 10), (0, 12), (7, 12), (14, 12), (3, 15), (11, 15)]

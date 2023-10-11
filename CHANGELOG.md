@@ -383,3 +383,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Sorry proffesor for the last two commits and changelogs because for the past week i have been trying to merge both my code with the code of the proffesors in one big commit, but i messed it up completely with my code and it is now a chaos. I am searching for some way to download a previous commit code so i can fix my mistake.
 - But for now i have been remaking and optimizing my code so i can fix this problem i have put myself in, so these new commits will be of more fixing my mistake of the last commit so i am sorry if many of the code now has broken or if i don`t add very significal thinks for my mistake.
 - So for now i am going to try to fix my fault and try to make my code more similar to the proffesor codes, once again. I am sorry for these last commits.
+
+## [1.2.5] -2023-11-10
+
+## Added:
+
+- Added new test for the use of main and dictionary
+- Added new exceptions to scrabble.py so 'validate_words' works within the profesor`s code
+
+## Changed:
+
+- Changed and fixed 'calculate_word_value' so it can work with the new code and it would fit with the proffesors code
+- Fixed 'validate_word_insided_word' and 'validate_word_place_word' so it can work with the new init of board and could work well
+- Completed and fixed 'check_victory' on scrabble.py so it can finally work within the rules of srabble
+- Modified 'players_count' code
+- some of the porblematic and old code is put into cuarantine until new advice.
+
+## Fixed:
+
+- fixed on of the biggest problem i had within the big commit three commits ago and is that i implemented self.tiles on cell when it isn`t used. Now i changed that into self.letter that i used and many of the problems with the code were fixed.
+- Fixed many of the problems with i had within the old tests and with calculate_word.
+
+## Notes:
+- Begin the work to fix scrabble.py
+

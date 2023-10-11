@@ -1,14 +1,16 @@
-import unittest
 import random
 
 class Tile:
-    def __init__(self, letter, value):
+    def __init__(self, letter, value, is_wildcard=False):
         self.letter = letter
         self.value = value
+        self.is_wildcard = is_wildcard
+
 
     def wildcard_tile(self, letter, value):
         self.letter = letter
         self.value = value
+        self.is_wildcard = True
 
     def __repr__(self):
         return f"{self.letter}:{self.value}"
@@ -60,7 +62,3 @@ class BagTiles:
     def put(self, tiles):
         self.tiles.extend(tiles)
 
-
-
-if __name__ == '__main__':
-    unittest.main()

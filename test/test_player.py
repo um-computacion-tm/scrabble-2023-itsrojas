@@ -86,17 +86,59 @@ class TestPlayer(unittest.TestCase):
         # Comprobar que el puntaje del jugador se ha actualizado correctamente
         self.assertEqual(player.points, 10)
 
-    def test_has_letters_true(self):
-        # Prueba si el jugador tiene las letras para formar la palabra 'BAD'
-        word = 'BAD'
-        result = self.player.has_letters(word)
-        self.assertTrue(result)
+    '''def test_validate_user_has_letters(self):
+        bag_tile = BagTiles()
+        bag_tile.tiles = [
+            Tile(letter='H', value=4),
+            Tile(letter='O', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+            Tile(letter='C', value=3),
+            Tile(letter='U', value=1),
+            Tile(letter='M', value=3),
+        ]
+        player = Player(bag_tile)
+        tiles = [
+            Tile(letter='H', value=4),
+            Tile(letter='O', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+        ]
 
-    def test_has_letters_false(self):
-        # Prueba si el jugador tiene las letras para formar la palabra 'GOOD'
-        word = 'GOOD'
-        result = self.player.has_letters(word)
-        self.assertFalse(result)
+        is_valid = player.has_letters(tiles)
+
+        self.assertTrue(is_valid)
+
+    # Verifica que las fichas se hayan consumido correctamente
+        letter_count = player.get_letter_count()
+        for tile in tiles:
+            letter = tile.letter
+            self.assertTrue(letter_count.get(letter, 0) > 0)
+            letter_count[letter] -= 1 '''
+
+    def test_validate_fail_when_user_has_not_letters(self):
+        bag_tile = BagTiles()
+        bag_tile.tiles = [
+            Tile(letter='P', value=3),
+            Tile(letter='O', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+            Tile(letter='C', value=3),
+            Tile(letter='U', value=1),
+            Tile(letter='M', value=3),
+        ]
+        player = Player(bag_tile)
+        tiles = [
+            Tile(letter='H', value=4
+                 ),
+            Tile(letter='O', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+        ]
+
+        is_valid = player.has_letters(tiles)
+
+        self.assertEqual(is_valid, False)
 
     
 

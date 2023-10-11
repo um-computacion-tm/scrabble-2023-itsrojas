@@ -27,7 +27,6 @@ class TestCell(unittest.TestCase):
             cell.calculate_value(),
             0,
         )
-
     def test_add_letter(self):
         cell = Cell(multiplier=1, multiplier_type='')
         letter = Tile(letter='p', value=3)

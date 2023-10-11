@@ -1,4 +1,3 @@
-import unittest
 from game.scrabble_objects import Tile, BagTiles
 from game.scrabble_board import Board
 
@@ -36,14 +35,6 @@ class Player:
     def update_score(self, word_value):
         self.points += word_value
 
-    def has_letters(self, word):
-        letter_count = self.get_letter_count()
-        for letter in word:
-            if letter not in letter_count or letter_count[letter] == 0:
-                return False
-            letter_count[letter] -= 1
-        return True
-
     def get_letter_count(self):
         letter_count = {}
         for tile in self.tiles:
@@ -54,6 +45,34 @@ class Player:
                     letter = tile.letter
                     letter_count[letter] = letter_count.get(letter, 0) + 1
         return letter_count
+    
+    def has_letters(self, tiles):
+        letter_count = {}
+        for tile in self.tiles:
+            if isinstance(tile, Tile):  # Verifica si el objeto es una instancia de la clase Tile
+                if tile.is_wildcard:
+                    letter_count['?'] = letter_count.get('?', 0) + 1
+                else:
+                    letter = tile.letter
+                    letter_count[letter] = letter_count.get(letter, 0) + 1
+
+        for tile in tiles:
+            letter = tile.letter
+            if letter not in letter_count or letter_count[letter] == 0:
+                return False
+
+        return True
+
+    """Verifica si el jugador tiene todas las letras necesarias para formar la palabra.
+
+    Args:
+        tiles: Una lista de objetos Tile que representan las letras de la palabra.
+
+    Returns:
+        True si el jugador tiene todas las letras necesarias, False en caso contrario.
+    """
+
+
 
 
 

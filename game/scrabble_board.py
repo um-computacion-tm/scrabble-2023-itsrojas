@@ -1,16 +1,16 @@
-from game.scrabble_objects import Tile
-from game.scrabble_cells import Cell
+from game.scrabble_cells import Cell  
+from game.scrabble_objects import Tile  
 
 class Board:
     def __init__(self, fill_with=" " * (15*15)):
         self.grid = [
             [
                 Cell(
-                    tile=(
+                    letter=(
                         Tile(
-                            letter=fill_with[(row * 15) + col], value=1
-                        )
-                        if fill_with[(row * 15) + col] != " "
+                            letter=fill_with[(row * 15)+col], value=1
+                        ) 
+                        if fill_with[(row * 15)+col] != " " 
                         else None
                     ),
                     multiplier=Cell.get_multiplier(row, col),
@@ -21,64 +21,72 @@ class Board:
             for row in range(15)
         ]
 
-    def validate_word_inside_board(self, word, location, orientation):
-        position_x = location[0]
-        position_y = location[1]
-        len_word = len(word)
-
-        if orientation == "H":
-            if position_x + len_word > 15:
-                return False
-            for col in range(position_x, position_x + len_word):
-                if not self.grid[position_y][col] or self.grid[position_y][col].tile:
-                    return False
-            return True
-        elif orientation == "V":
-            if position_y + len_word > 15:
-                return False
-            for row in range(position_y, position_y + len_word):
-                if not self.grid[row][position_x] or self.grid[row][position_x].tile:
-                    return False
-            return True
-        else:
-            return False  # Orientación no válida
-
-    def validate_word_place_board(self, word, location, orientation):
-        if not self.validate_word_inside_board(word, location, orientation):
-            return False
-
-        position_x = location[0]
-        position_y = location[1]
-        len_word = len(word)
-
-        if orientation == "H":
-            for i, letter in enumerate(word):
-                cell = self.grid[position_y][position_x + i]
-                if cell.tile and cell.tile.letter != letter:
-                    return False
-                # Agregamos esta línea para asegurarnos de que solo se agreguen letras a las celdas que están vacías.
-                if not cell.tile:
-                    cell.add_letter(Tile(letter, 1))
-            return True
-        elif orientation == "V":
-            for i, letter in enumerate(word):
-                cell = self.grid[position_y + i][position_x]
-                if cell.tile and cell.tile.letter != letter:
-                    return False
-                # Agregamos esta línea para asegurarnos de que solo se agreguen letras a las celdas que están vacías.
-                if not cell.tile:
-                    cell.add_letter(Tile(letter, 1))
-            return True
-        else:
-            return False  # Orientación no válida
-
     @property
     def is_empty(self):
         for row in self.grid:
             for cell in row:
-                if cell.tile or cell.multiplier_active:
+                if cell.letter is not None:
                     return False
         return True
+
+    @staticmethod
+    def calculate_word_value(word: list[Cell]) -> int:
+        value: int = 0
+        multiplier_word = None
+        for cell in word:
+            value = value + cell.calculate_value()
+            if cell.multiplier_type == "word" and cell.multiplier_active:
+                multiplier_word = cell.multiplier
+                cell.deactivate_multiplier()  
+        if multiplier_word:
+            value = value * multiplier_word
+        return value
+
+    def validate_word_inside_board(self, word, location, orientation):
+        position_x = location[0]
+        position_y = location[1]
+        len_word = len(word)
+        if orientation == "H":
+            if position_x + len_word > 15:
+                return False
+            else:
+                for i in range(len_word):
+                    if self.grid[position_x + i][position_y].letter is not None:
+                        return False
+                return True
+        elif orientation == "V":
+            if position_y + len_word > 15:
+                return False
+            else:
+                for i in range(len_word):
+                    if self.grid[position_x][position_y + i].letter is not None:
+                        return False
+                return True
+        else:
+            return False
+
+    def validate_word_place_word(self, word, location, orientation):
+        if not self.validate_word_inside_board(word, location, orientation):
+            return False
+        position_x = location[0]
+        position_y = location[1]
+        len_word = len(word)
+        if orientation == "H":
+            for i in range(len_word):
+                cell = self.grid[position_x + i][position_y]
+                if cell.letter is None:
+                    return False
+                if cell.letter is not None and cell.letter != word[i].letter:
+                    return False
+        elif orientation == "V":
+            for i in range(len_word):
+                cell = self.grid[position_x][position_y + i]
+                if cell.letter is None:
+                    return False
+                if cell.letter is not None and cell.letter != word[i].letter:
+                    return False
+        return True
+
         
     '''@staticmethod
     def calculate_word_value(word: list[Cell]) -> int:
