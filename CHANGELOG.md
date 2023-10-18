@@ -407,3 +407,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Notes:
 - Begin the work to fix scrabble.py
 
+## [1.2.6] -2023-17-10
+
+## Added:
+- Readed the 'place_word' method to scrabble_board.py so it works with the fixed method of the validate_words
+
+## Changed:
+
+- Fixed 'validate_word_inside_board' so now it doesn`t make an error if the board is not empty. Now it only verifies if the word is out of board. Now it can also verify if is below or above the board.
+- Fixed 'validate_word_board_place_board' so now it doens`t make problem if the cell its empty. that was a mistake. Now it see if the board is empty or not. If it`s empty it now see if the first word has a letter on the middle of the board. If its not, it send error, and if its not empty, it only verifies if a word croses with aother word and it cause problem for this.
+- changed coveragearc name to coveragerc.
+
+## Known Error
+- THe main problem on 'scrabble_player.py' is that the method of get_letters on play doesnt reccolect/ memorize very well the player tiles so that`s why has_letter produces an error. It will be fixed inmediattly.
+
+## Notes
+- Finally learned to debug a code

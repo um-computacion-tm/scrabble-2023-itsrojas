@@ -50,33 +50,33 @@ class TestBoard(unittest.TestCase):
         board.grid[7][7].add_letter(Tile('C', 1))
         assert board.is_empty == False
 
-    '''def test_place_word_empty_board_horizontal_fine(self):
+    def test_place_word_empty_board_horizontal_fine(self):
         board = Board()
-        word = [Tile('F', 1), Tile('a', 1), Tile('c', 1), Tile('u', 1), Tile('l', 1), Tile('t', 1), Tile('a', 1), Tile('d', 1)]
+        word = [Tile('F', 4), Tile('A', 1), Tile('C', 3), Tile('U', 1), Tile('L', 1), Tile('T', 1), Tile('A', 1), Tile('D', 2)]
         location = (7, 4)
         orientation = "H"
         word_is_valid = board.validate_word_place_word(word, location, orientation)
-        assert word_is_valid == True'''
+        assert word_is_valid == True
 
     def test_place_word_empty_board_horizontal_wrong(self):
         board = Board()
-        word = [Tile('F', 1), Tile('a', 1), Tile('c', 1), Tile('u', 1), Tile('l', 1), Tile('t', 1), Tile('a', 1), Tile('d', 1)]
+        word = [Tile('F', 4), Tile('A', 1), Tile('C', 3), Tile('U', 1), Tile('L', 1), Tile('T', 1), Tile('A', 1), Tile('D', 2)]
         location = (2, 4)
         orientation = "H"
         word_is_valid = board.validate_word_place_word(word, location, orientation)
         assert word_is_valid == False
 
-    ''' def test_place_word_empty_board_vertical_fine(self):
+    def test_place_word_empty_board_vertical_fine(self):
         board = Board()
-        word = [Tile('F', 1), Tile('a', 1), Tile('c', 1), Tile('u', 1), Tile('l', 1), Tile('t', 1), Tile('a', 1), Tile('d', 1)]
+        word = [Tile('F', 4), Tile('A', 1), Tile('C', 3), Tile('U', 1), Tile('L', 1), Tile('T', 1), Tile('A', 1), Tile('D', 2)]
         location = (4, 7)
         orientation = "V"
         word_is_valid = board.validate_word_place_word(word, location, orientation)
-        assert word_is_valid == True '''
+        assert word_is_valid == True 
 
     def test_place_word_empty_board_vertical_wrong(self):
         board = Board()
-        word = [Tile('F', 1), Tile('a', 1), Tile('c', 1), Tile('u', 1), Tile('l', 1), Tile('t', 1), Tile('a', 1), Tile('d', 1)]
+        word = [Tile('F', 4), Tile('A', 1), Tile('C', 3), Tile('U', 1), Tile('L', 1), Tile('T', 1), Tile('A', 1), Tile('D', 2)]
         location = (2, 4)
         orientation = "V"
         word_is_valid = board.validate_word_place_word(word, location, orientation)
@@ -153,3 +153,5 @@ from game.board import Board
 
 if __name__ == '__main__':
     unittest.main()
+    
+#X

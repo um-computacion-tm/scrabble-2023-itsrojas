@@ -40,52 +40,64 @@ class Board:
                 cell.deactivate_multiplier()  
         if multiplier_word:
             value = value * multiplier_word
+        if len(word) == 7:
+            value += 50
         return value
 
     def validate_word_inside_board(self, word, location, orientation):
         position_x = location[0]
         position_y = location[1]
         len_word = len(word)
+
         if orientation == "H":
-            if position_x + len_word > 15:
+            if position_x + len_word > 15 or position_x < 0 or position_y < 0:
                 return False
-            else:
-                for i in range(len_word):
-                    if self.grid[position_x + i][position_y].letter is not None:
-                        return False
-                return True
+            return True
         elif orientation == "V":
-            if position_y + len_word > 15:
+            if position_y + len_word > 15 or position_x < 0 or position_y < 0:
                 return False
-            else:
-                for i in range(len_word):
-                    if self.grid[position_x][position_y + i].letter is not None:
-                        return False
-                return True
+            return True
         else:
             return False
-
+        
     def validate_word_place_word(self, word, location, orientation):
         if not self.validate_word_inside_board(word, location, orientation):
             return False
+
         position_x = location[0]
         position_y = location[1]
-        len_word = len(word)
-        if orientation == "H":
-            for i in range(len_word):
-                cell = self.grid[position_x + i][position_y]
-                if cell.letter is None:
-                    return False
-                if cell.letter is not None and cell.letter != word[i].letter:
-                    return False
-        elif orientation == "V":
-            for i in range(len_word):
-                cell = self.grid[position_x][position_y + i]
-                if cell.letter is None:
-                    return False
-                if cell.letter is not None and cell.letter != word[i].letter:
-                    return False
-        return True
+
+        if self.is_empty:
+            if orientation == "H" and location[0] != 7:
+                return False
+            elif orientation == "V" and location[1] != 7:
+                return False
+            else:
+                for i, letter in enumerate(word):
+                    if orientation == "H":
+                        current_cell = self.grid[position_x][position_y + i]
+                    elif orientation == "V":
+                        current_cell = self.grid[position_x + i][position_y]
+                    current_cell.add_letter(Tile(letter, 1))
+                return True
+        else:
+            if orientation == "H":
+                for i, letter in enumerate(word):
+                    current_cell = self.grid[position_x][position_y + i]
+                    if current_cell.letter is not None and current_cell.letter.letter != letter:
+                        return False
+                    current_cell.add_letter(Tile(letter, 1))
+                return True
+            elif orientation == "V":
+                for i, letter in enumerate(word):
+                    current_cell = self.grid[position_x + i][position_y]
+                    if current_cell.letter is not None and current_cell.letter.letter != letter:
+                        return False
+                    current_cell.add_letter(Tile(letter, 1))
+                return True
+            else:
+                return False
+
 
         
     '''@staticmethod
@@ -137,4 +149,4 @@ class Board:
         cell.is_occupied = True '''
 
 
-
+#X

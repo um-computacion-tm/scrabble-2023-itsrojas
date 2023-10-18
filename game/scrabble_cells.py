@@ -5,14 +5,14 @@ class Cell:
         self,
         multiplier=1,
         multiplier_type='',
-        letter=None,  
+        letter=None,
         multiplier_active=True,
     ):
         self.multiplier = multiplier
         self.multiplier_type = multiplier_type
         self.multiplier_active = multiplier_active
         self.letter = letter
-        self.used = False  
+        self.used = False
 
     def deactivate_multiplier(self):
         self.multiplier_active = False
@@ -21,11 +21,13 @@ class Cell:
         self.letter = letter
 
     def calculate_value(self):
-        if self.letter is None:
+        if self.letter is None or self.used == True:
             return 0
         if self.multiplier_type == 'letter':
+            self.used = True
             return self.letter.value * self.multiplier
         else:
+            self.used = True
             return self.letter.value
 
     def __repr__(self):
@@ -35,7 +37,7 @@ class Cell:
             return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
         else:
             return '   '
-        
+
     def get_multiplier(row, col):
         dl_coordinates = [(4, 1), (12, 1), (1, 4), (8, 4), (15, 4), (3, 7), (7, 7), (9, 7), (13, 7), (4, 10), (12, 10), (0, 12), (7, 12), (14, 12), (3, 15), (11, 15)]
         tl_coordinates = [(6, 2), (10, 2), (2, 6), (6, 6), (10, 6), (14, 6), (1, 8), (5, 8), (9, 8), (13, 8), (2, 10), (6, 10), (10, 10), (14, 10), (6, 14), (10, 14)]
@@ -52,7 +54,7 @@ class Cell:
             return 6  # Triple Word
         else:
             return 1
-    
+
     def get_multiplier_type(row, col):
         dl_coordinates = [(4, 1), (12, 1), (1, 4), (8, 4), (15, 4), (3, 7), (7, 7), (9, 7), (13, 7), (4, 10), (12, 10), (0, 12), (7, 12), (14, 12), (3, 15), (11, 15)]
         tl_coordinates = [(6, 2), (10, 2), (2, 6), (6, 6), (10, 6), (14, 6), (1, 8), (5, 8), (9, 8), (13, 8), (2, 10), (6, 10), (10, 10), (14, 10), (6, 14), (10, 14)]
@@ -78,3 +80,5 @@ class Cell:
         def __init__(self, multiplier, multiplier_type, icon):
             super().__init__(multiplier, multiplier_type)
             self.icon = icon '''
+            
+#X

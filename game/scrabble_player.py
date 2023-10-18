@@ -72,7 +72,7 @@ class Player:
         True si el jugador tiene todas las letras necesarias, False en caso contrario.
     """
 
-
+#X
 
 
 

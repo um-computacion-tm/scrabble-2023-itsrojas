@@ -133,3 +133,5 @@ class ScrabbleGame:
 
         if len(word) == 7:
             player.update_score(SEVEN_TILES_BONUS) '''
+       
+#X
