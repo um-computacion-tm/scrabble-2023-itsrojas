@@ -423,3 +423,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Notes
 - Finally learned to debug a code
+
+## [1.2.6] -2023-17-10
+
+## Changed
+
+- Modified the __init__ method in Player class in scrabble_player.py to handle the case when bag_tiles is None and to incorporate the object Tile.
+- Changed the draw_initial_tiles method in Player class in scrabble_player.py to utilize the take method from BagTiles to obtain initial tiles.
+- Fixed the refill_tiles method in Player class in scrabble_player.py to correctly determine the number of new tiles to take from the bag.
+- Changed the exchange_tiles method in Player class in scrabble_player.py to properly handle the exchange of tiles between the bag and the player's hand.
+- Updated the has_letters method in Player class in scrabble_player.py to ensure accurate checking of letters in the player's hand and theiir avaliability.
+- Adjusted the take method in BagTiles class in scrabble_objects.py to take a default count of 1 if no count is specified.

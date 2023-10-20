@@ -14,7 +14,7 @@ from game.scrabble_board import Board
 from game.scrabble import ScrabbleGame, InvalidWordError
 
 
-''' class TestScrabbleGame(unittest.TestCase):
+class TestScrabbleGame(unittest.TestCase):
     def test_init(self):
         board = Board()
         player_names = ["Jugador1", "Jugador2", "Jugador3"]
@@ -203,7 +203,7 @@ from game.scrabble import ScrabbleGame, InvalidWordError
         scrabble_game.players[2].active = False
 
         # Verificamos si se declara al jugador activo como ganador
-        self.assertTrue(scrabble_game.check_victory()) '''
+        self.assertTrue(scrabble_game.check_victory()) 
 
 
 

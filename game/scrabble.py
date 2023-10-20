@@ -8,14 +8,10 @@ class InvalidWordError(Exception):
 class InvalidPlayersCountException(Exception):
     pass
 class InvalidWordException(Exception):
-    def __init__(self, message="La palabra no existe en el diccionario"):
-        self.message = message
-        super().__init__(self.message)
+    pass
 
 class InvalidPlaceWordException(Exception):
-    def __init__(self, message="La palabra excede el tablero o está mal colocada"):
-        self.message = message
-        super().__init__(self.message)
+    pass
 
 
 class ScrabbleGame:

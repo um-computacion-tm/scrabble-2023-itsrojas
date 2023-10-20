@@ -53,7 +53,7 @@ class BagTiles:
         ] 
         random.shuffle(self.tiles)
 
-    def take(self, count):
+    def take(self, count=1):
         tiles = []
         for _ in range(count):
             tiles.append(self.tiles.pop())
