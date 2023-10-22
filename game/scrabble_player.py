@@ -1,4 +1,4 @@
-from game.scrabble_objects import Tile, BagTiles
+from game.scrabble_objects import BagTiles
 
 class InvalidHandError(Exception):
     pass
@@ -8,12 +8,9 @@ class Player:
         if bag_tiles is None:
             bag_tiles = BagTiles()
         self.bag = bag_tiles
-        self.tiles = self.bag.take(0)
-        self.object = Tile('', 0)  
+        self.hand = self.bag.take(0)
         self.name = name
         self.points = points
-        self.hand = []
-        self.active = True
 
     def draw_initial_tiles(self, initial_letters=None):
         if initial_letters is None:
@@ -51,23 +48,15 @@ class Player:
     def update_score(self, word_value):
         self.points += word_value
 
-    def has_letters(self, tiles):
-        tile_dict = {}
-        for self.tile in self.hand:
-            if self.object.letter not in tile_dict:
-                tile_dict[self.object.letter] = 1
-            else:
-                tile_dict[self.object.letter] += 1
-
-        for self.tile in tiles:
-            if self.object.letter not in tile_dict or tile_dict[self.object.letter] == 0:
-                if '?' in tile_dict and tile_dict['?'] > 0:
-                    tile_dict['?'] -= 1
-                else:
-                    return False
-            else:
-                tile_dict[self.object.letter] -= 1
+    def has_letters(self, word):
+        player_letters = [tile.letter for tile in self.hand]
+        player_letter_count = {letter: player_letters.count(letter) for letter in set(player_letters)}
+        for letter in word:
+            if letter not in player_letter_count or player_letter_count[letter] == 0:
+                return False
+            player_letter_count[letter] -= 1
         return True
+
 
 
     """Verifica si el jugador tiene todas las letras necesarias para formar la palabra.

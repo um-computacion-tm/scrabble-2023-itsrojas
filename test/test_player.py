@@ -18,7 +18,7 @@ class TestPlayer(unittest.TestCase):
 
     def test_init(self):
         player_1 = Player()
-        self.assertEqual(len(player_1.tiles), 0)
+        self.assertEqual(len(player_1.hand), 0)
 
     def test_draw_initial_tiles(self):
         player = Player(bag_tiles=self.bag)
@@ -57,8 +57,9 @@ class TestPlayer(unittest.TestCase):
         player.update_score(word_value)
         self.assertEqual(player.points, 10)
 
-    '''    def test_validate_user_has_letters(self):
-        self.bag.tiles = [
+    def test_validate_user_has_letters(self):
+        player = Player(bag_tiles=self.bag)
+        player.hand = [
             Tile(letter='H', value=4),
             Tile(letter='O', value=1),
             Tile(letter='L', value=1),
@@ -67,20 +68,15 @@ class TestPlayer(unittest.TestCase):
             Tile(letter='U', value=1),
             Tile(letter='M', value=3),
         ]
-        player = Player(self.bag)
-        tiles = [
-            Tile(letter='H', value=4),
-            Tile(letter='O', value=1),
-            Tile(letter='L', value=1),
-            Tile(letter='A', value=1),
-        ]
+        tiles = ['H', 'O', 'L', 'A']
 
         is_valid = player.has_letters(tiles)
 
-        self.assertEqual(is_valid, True) '''
+        self.assertEqual(is_valid, True)
 
     def test_validate_fail_when_user_has_not_letters(self):
-        self.bag.tiles = [
+        player = Player(bag_tiles=self.bag)
+        player.hand = [
             Tile(letter='P', value=3),
             Tile(letter='O', value=1),
             Tile(letter='L', value=1),
@@ -89,17 +85,12 @@ class TestPlayer(unittest.TestCase):
             Tile(letter='U', value=1),
             Tile(letter='M', value=3),
         ]
-        player = Player(self.bag)
-        tiles = [
-            Tile(letter='H', value=4),
-            Tile(letter='O', value=1),
-            Tile(letter='L', value=1),
-            Tile(letter='A', value=1),
-        ]
+        tiles = ['H', 'O', 'L', 'A']
 
         is_valid = player.has_letters(tiles)
 
         self.assertEqual(is_valid, False)
+
 
 if __name__ == '__main__':
     unittest.main()

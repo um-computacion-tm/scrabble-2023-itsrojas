@@ -434,3 +434,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the exchange_tiles method in Player class in scrabble_player.py to properly handle the exchange of tiles between the bag and the player's hand.
 - Updated the has_letters method in Player class in scrabble_player.py to ensure accurate checking of letters in the player's hand and theiir avaliability.
 - Adjusted the take method in BagTiles class in scrabble_objects.py to take a default count of 1 if no count is specified.
+
+## [1.2.7] -2023-21-10
+
+## Changed
+
+- Fixed finally the 'has_letters' method of 'scrabble_player.py' now it finally compare the tiles of the player hand instead of the bagtile method, stopped using tuples to save the tiles and using list and dictionary. now it finally works
+- changed the name of self.tiles from the __init__ of player to hand to avoid confussion
+- optimized the code of player
+## Dropped
+
+- Dropped the Tile import to player because it`s unnecesary to the code
