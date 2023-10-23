@@ -5,88 +5,87 @@ from game.dictionary import dictionary_word
 
 class InvalidWordError(Exception):
     pass
+
 class InvalidPlayersCountException(Exception):
     pass
+
 class InvalidWordException(Exception):
     pass
 
 class InvalidPlaceWordException(Exception):
     pass
 
-
 class ScrabbleGame:
     def __init__(self, players_count: int):
         self.board = Board()
         self.bag_tiles = BagTiles()
-        self.players:list[Player] = []
-        for index in range(players_count):
-            self.players.append(Player(id=index, bag_tiles=self.bag_tiles))
-        
-        self.current_player = None
+        self.players = [Player(id=index, bag_tiles=self.bag_tiles) for index in range(players_count)]
+        self.current_player = 0
 
     def play(self, word, location, orientation):
         self.validate_word(word, location, orientation)
         words = self.board.put_words(word, location, orientation)
-        total = self.board.calculate_words_value(words)
-        self.players[self.current_player].score += total
+        total = self.board.calculate_word_value(words)
+        self.players[self.current_player].update_score(total)
         self.next_turn()
 
     def next_turn(self):
         self.current_player = (self.current_player + 1) % len(self.players)
 
-    
     def skip_turn(self):
         self.next_turn()
 
+    @staticmethod
     def get_player_count():
         while True:
             try:
-                player_count = int(input('cantidad de jugadores (1-3): '))
+                player_count = int(input('Cantidad de jugadores (1-3): '))
                 if player_count <= 3:
                     break
-            except Exception as e:
-                print('ingrese un numero por favor')
-
+            except ValueError:
+                print('Por favor, ingrese un número válido.')
         return player_count
-    
+
     def resign_player(self, player_index):
         if 0 <= player_index < len(self.players):
             self.players[player_index].active = False
+    
+    def play(self, word, location, orientation):
+        self.validate_word(word, location, orientation)
+        words = self.board.put_words(word, location, orientation)
+        total = self.calculate_word_value(words)
+        self.players[self.current_player].score += total
+        self.next_turn()
 
     def check_victory(self):
-        num_players = len(self.players)
-        num_inactive_players = sum(1 for player in self.players if not player.active)
+        active_players = [player for player in self.players if player.active]
 
-        if num_inactive_players >= num_players - 1:
-            # Si queda solo un jugador activo o todos son inactivos, se ha completado la partida.
-            active_players = [player for player in self.players if player.active]
-            if active_players:
-                active_player = active_players[0]
-                print(f"¡El jugador {active_player.id}, {active_player.name}, ha ganado la partida!")
-            else:
-                print("La partida ha terminado en empate.")
+        if len(active_players) == 1:
+            winner = active_players[0]
+            print(f"¡{winner.name} ha ganado el juego con {winner.points} puntos!")
             return True
 
         return False
 
+    def check_victory(self):
+        active_players = [player for player in self.players if player.active]
+        if len(active_players) <= 1:
+            if active_players:
+                winner = active_players[0]
+                print(f"¡El jugador {winner.id}, {winner.name}, ha ganado la partida!")
+            else:
+                print("La partida ha terminado en empate.")
+            return True
+        return False
+
     def validate_word(self, word, location, orientation):
         if not dictionary_word(word):
-            raise InvalidWordException("Su palabra no existe en el diccionario")
+            raise InvalidWordException("La palabra no existe en el diccionario.")
         if not self.board.validate_word_inside_board(word, location, orientation):
-            raise InvalidPlaceWordException("Su palabra excede el tablero")
-        if not self.board.validate_word_place_board(word, location, orientation):
-            raise InvalidPlaceWordException("Su palabra esta mal puesta en el tablero")
-    
-    def get_words():
-        '''
-        Obtener las posibles palabras que se pueden formar, dada una palabra, ubicacion y orientacion 
-        Preguntar al usuario, por cada una de esas palabras, las que considera reales
-        '''
-    
-    def put_words():
-        '''
-        Modifica el estado del tablero con las palabras consideradas como correctas
-        '''
+            raise InvalidPlaceWordException("La palabra excede el tablero.")
+        if not self.board.validate_word_place_word(word, location, orientation):
+            raise InvalidPlaceWordException("La palabra está mal ubicada en el tablero.")
+
 
         
 

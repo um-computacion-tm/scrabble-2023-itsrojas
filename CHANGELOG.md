@@ -445,3 +445,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Dropped
 
 - Dropped the Tile import to player because it`s unnecesary to the code
+
+## [1.2.8] -2023-22-10
+
+## Changed
+
+- Modified and alter some codes of scrabble.py to start working with its modifications. Although it is not finished by now
