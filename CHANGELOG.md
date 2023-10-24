@@ -424,7 +424,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Notes
 - Finally learned to debug a code
 
-## [1.2.6] -2023-17-10
+## [1.2.7] -2023-17-10
 
 ## Changed
 
@@ -435,7 +435,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated the has_letters method in Player class in scrabble_player.py to ensure accurate checking of letters in the player's hand and theiir avaliability.
 - Adjusted the take method in BagTiles class in scrabble_objects.py to take a default count of 1 if no count is specified.
 
-## [1.2.7] -2023-21-10
+## [1.2.8] -2023-21-10
 
 ## Changed
 
@@ -446,8 +446,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Dropped the Tile import to player because it`s unnecesary to the code
 
-## [1.2.8] -2023-22-10
+## [1.2.9] -2023-22-10
 
 ## Changed
 
 - Modified and alter some codes of scrabble.py to start working with its modifications. Although it is not finished by now
+
+## [1.3.0] -2023-23-10
+
+## Added
+
+- Added the is_game_over methods so the game can now end when certain criteria is archieved. For now they are only two and those are empty_bag for when the bag is empty(currently working) and two_consecutive_passes for when the players passes more than two times each player but it`s not complete that one.
+- Readded the id attribute for player and changed its configuration to not cause any problem within ScrabbleGame.
+- Added a new test to verify tha is_game_over works.
+
+## Changed 
+
+- Altered the __init__ of ScrabbleGame so now if a player doesn`t put a name it will fill the code with a generic one.
+- changed the method "resign_player" so it can now send an IndexError if the player index is out of range
+- Improved the __init__ of board
+- changes the turn related methods so now it calls end_game method each time they are used to analyze if one of the criterias is archieved to end game
+- Fixed most of base 'scrabble.py' code so now it all works with the exception of 'validate_word' that i am going to start working tomorrow

@@ -4,13 +4,15 @@ class InvalidHandError(Exception):
     pass
 
 class Player:
-    def __init__(self, bag_tiles=None, points=0, name=""):
+    def __init__(self, bag_tiles=None, points=0, name="", active=True, player_id=None): 
         if bag_tiles is None:
             bag_tiles = BagTiles()
         self.bag = bag_tiles
         self.hand = self.bag.take(0)
         self.name = name
         self.points = points
+        self.active = active
+        self.id = player_id 
 
     def draw_initial_tiles(self, initial_letters=None):
         if initial_letters is None:

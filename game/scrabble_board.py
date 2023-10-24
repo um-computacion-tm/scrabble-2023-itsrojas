@@ -6,13 +6,7 @@ class Board:
         self.grid = [
             [
                 Cell(
-                    letter=(
-                        Tile(
-                            letter=fill_with[(row * 15)+col], value=1
-                        ) 
-                        if fill_with[(row * 15)+col] != " " 
-                        else None
-                    ),
+                    letter=Tile(fill_with[(row * 15) + col], 1) if fill_with[(row * 15) + col] != " " else None,
                     multiplier=Cell.get_multiplier(row, col),
                     multiplier_type=Cell.get_multiplier_type(row, col),
                 )

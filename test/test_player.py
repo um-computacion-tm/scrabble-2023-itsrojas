@@ -17,7 +17,7 @@ class TestPlayer(unittest.TestCase):
         self.bag = BagTiles()
 
     def test_init(self):
-        player_1 = Player()
+        player_1 = Player(player_id=1)  
         self.assertEqual(len(player_1.hand), 0)
 
     def test_draw_initial_tiles(self):
