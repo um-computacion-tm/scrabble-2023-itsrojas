@@ -31,7 +31,8 @@ class Board:
     @staticmethod
     def calculate_word_value(word):
         value = 0
-        multiplier_word = 1  # Initialize multiplier to 1
+        multiplier_word = 1  
+        
         for cell in word:
             value += cell.calculate_value()
             if cell.multiplier_type == "word" and cell.multiplier_active:
@@ -39,11 +40,11 @@ class Board:
                 cell.deactivate_multiplier()
         if len(word) == 7:
             value += 50
-        return value * multiplier_word  # Apply the word multiplier
+        return value * multiplier_word 
 
-    def show_board(self):  # Add self as parameter
+    def show_board(self):  
         print('\n  |' + ''.join([f' {str(row_index).rjust(2)} ' for row_index in range(15)]))
-        for row_index, row in enumerate(self.grid):  # Add self
+        for row_index, row in enumerate(self.grid): 
             print(
                 str(row_index).rjust(2) +
                 '| ' +
@@ -92,33 +93,21 @@ class Board:
                     current_cell = self.grid[position_x][position_y + i]
                     if self.current_cell.letter is not None and self.current_cell.letter != letter:
                         return False
-                    self.current_cell.add_letter(Tile(letter, 1))
-                return True
+                    else:
+                        self.current_cell.add_letter(Tile(letter, 1))
+                        return True
             elif orientation == "V":
                 for i, letter in enumerate(word):
                     current_cell = self.grid[position_x + i][position_y]
                     if self.current_cell.letter is not None and self.current_cell.letter != letter:
                         return False
-                    self.current_cell.add_letter(Tile(letter, 1))
-                return True
+                    else:
+                        self.current_cell.add_letter(Tile(letter, 1))
+                        return True
             else:
                 return False
             
-    def place_word(self, word, location, orientation):
-        if not self.validate_word_place_word(word, location, orientation):
-            raise InvalidPlaceWordException("Invalid word placement.")
 
-        word_cells = []
-        position_x = location[0]
-        position_y = location[1]
-
-        for i, letter in enumerate(word):
-            if orientation == "H":
-                self.current_cell = self.grid[position_x][position_y + i]
-            elif orientation == "V":
-                self.current_cell = self.grid[position_x + i][position_y]
-            self.current_cell.add_letter(Tile(letter, 1))
-            word_cells.append(self.current_cell)
 
 
     """ Places a word on the board.
@@ -162,23 +151,13 @@ class Board:
 
         return word_value'''
     
-    def place_word(self, word, location, orientation):
-        row, col = location
-        for letter in word:
-            cell = Cell(letter=letter)
-            cell.row = row
-            cell.col = col
-            if orientation == "H":
-                col += 1
-            elif orientation == "V":
-                row += 1
 
 
     def change_state(self, row, col, letter=None, score=0):
-        cell = self.grid[row][col]
-        cell.letter = letter
-        cell.score = score
-        cell.is_occupied = True
+        self.current_cell = self.grid[row][col]
+        self.current_cell.letter = letter
+        self.current_cell.score = score
+        self.current_cell.is_occupied = True
 
 
 #X

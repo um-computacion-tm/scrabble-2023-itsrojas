@@ -1,4 +1,4 @@
-from game.scrabble_objects import BagTiles
+from game.scrabble_objects import BagTiles, Tile
 
 class InvalidHandError(Exception):
     pass
@@ -13,6 +13,7 @@ class Player:
         self.points = points
         self.active = active
         self.id = player_id 
+        self.tile = Tile(letter='', value=0)
 
     def draw_initial_tiles(self, initial_letters=None):
         if initial_letters is None:

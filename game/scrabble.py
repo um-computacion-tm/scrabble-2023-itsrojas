@@ -19,7 +19,7 @@ class ScrabbleGame:
     def __init__(self, players_count: int, player_names=None):
         self.board = Board()
         self.bag_tiles = BagTiles()
-        if player_names is None:  # Agregamos un valor predeterminado para player_names si es None
+        if player_names is None:  
             player_names = [f"Player {i}" for i in range(players_count)]
         self.players = [Player(player_id=index, bag_tiles=self.bag_tiles, name=player_names[index]) for index in range(players_count)]
         self.current_player = 0

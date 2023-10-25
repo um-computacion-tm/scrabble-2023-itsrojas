@@ -5,7 +5,7 @@ class Cell:
         self,
         multiplier=1,
         multiplier_type='',
-        letter=None,
+        letter=Tile(letter='',value=0),
         multiplier_active=True,
     ):
         self.multiplier = multiplier
@@ -21,6 +21,12 @@ class Cell:
         self.letter = letter
         return self
     
+    def deactivate_multiplier(self):
+        if self.letter is not None and self.multiplier > 1:
+            self.multiplier_active = False
+        else:
+            pass
+
     def calculate_value(self):
         if self.letter is None or self.used == True:
             return 0
@@ -30,7 +36,8 @@ class Cell:
         else:
             self.used = True
             return self.letter.value
-
+        self.deactivate_multiplier()
+        return value
     def __repr__(self):
         if self.letter:
             return repr(self.letter)

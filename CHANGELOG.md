@@ -480,3 +480,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - changed the __init__ of 'scrabble_board' to incorporate cell methods on a more efficient way.
 - changed the 'add_letter' method of 'scrabble_cells.py' to show the result of its work.
 - Improve some of the 'scrabble_board.py' code
+
+## [1.3.1] -2023-25-10
+
+## Added
+
+- Added 'deactivate_multiplier' method to "scrabble_cells.py" to deactive the multiplier after it`s so the multipliers become one use only.
+- Added an import and attribute to "scrabble_player.py" so it can now relate to Tile and fixes some problems within its code
+
+## Changed
+- changed the attribute letter of Cell so it can vinculate with the object Tiles and can uses its methods and attributes.
+- Changed some parts of the code of "validate_word_place_word" so it now uses else to begin the process of when the verification of the word is correct.
+- Improved some minor parts of the  code of "scrabble_board.py"
+- Fixed some errors in coveragerc
+
+## Dropped
+- place_word is scrapped and is going to be replaced with a much simpler method 
+- Dropped an unecessary config.yml in the archives

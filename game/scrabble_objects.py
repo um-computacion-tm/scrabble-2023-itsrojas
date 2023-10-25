@@ -6,7 +6,6 @@ class Tile:
         self.value = value
         self.is_wildcard = is_wildcard
 
-
     def wildcard_tile(self, letter, value):
         self.letter = letter
         self.value = value

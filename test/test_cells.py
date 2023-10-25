@@ -22,7 +22,7 @@ class TestCell(unittest.TestCase):
             cell.multiplier_type,
             'letter',
         )
-        self.assertIsNone(cell.letter)
+        self.assertIsNotNone(cell.letter)
         self.assertEqual(
             cell.calculate_value(),
             0,
