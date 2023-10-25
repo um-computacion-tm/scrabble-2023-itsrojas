@@ -82,6 +82,24 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_word(word, location, orientation)
         assert word_is_valid == False
 
+    def test_place_word_valid(self):
+        board = Board()
+        word = [Tile('F', 4), Tile('A', 1), Tile('C', 3), Tile('U', 1), Tile('L', 1), Tile('T', 1), Tile('A', 1), Tile('D', 2)]
+        location = (7, 4)
+        orientation = "H"
+
+        board.place_word(word, location, orientation)
+
+        # Verificar si la letra se insertó correctamente en la ubicación especificada
+        self.assertEqual(board.grid[7][4].letter, 'F')
+        self.assertEqual(board.grid[7][5].letter, 'A')
+        self.assertEqual(board.grid[7][6].letter, 'C')
+        self.assertEqual(board.grid[7][7].letter, 'U')
+        self.assertEqual(board.grid[7][8].letter, 'L')
+        self.assertEqual(board.grid[7][9].letter, 'T')
+        self.assertEqual(board.grid[7][10].letter, 'A')
+        self.assertEqual(board.grid[7][11].letter, 'D')
+
 
 
 

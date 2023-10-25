@@ -17,9 +17,10 @@ class Cell:
     def deactivate_multiplier(self):
         self.multiplier_active = False
 
-    def add_letter(self, letter: Tile):
+    def add_letter(self, letter):
         self.letter = letter
-
+        return self
+    
     def calculate_value(self):
         if self.letter is None or self.used == True:
             return 0

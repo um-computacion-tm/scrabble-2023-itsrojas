@@ -467,3 +467,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved the __init__ of board
 - changes the turn related methods so now it calls end_game method each time they are used to analyze if one of the criterias is archieved to end game
 - Fixed most of base 'scrabble.py' code so now it all works with the exception of 'validate_word' that i am going to start working tomorrow
+
+## [1.3.1] -2023-24-10
+
+## Added
+
+- added the method 'place_word' to 'scrabble_board.py' so it cn place the words on the board and it can correlate with 'validate_word_place_word' altough is not complete for now.
+- Added 'show_board' to graphicate the board to the player.
+
+## Changed
+
+- changed the __init__ of 'scrabble_board' to incorporate cell methods on a more efficient way.
+- changed the 'add_letter' method of 'scrabble_cells.py' to show the result of its work.
+- Improve some of the 'scrabble_board.py' code

@@ -1,6 +1,10 @@
 from game.scrabble_cells import Cell  
 from game.scrabble_objects import Tile  
 
+
+class InvalidPlaceWordException(Exception):
+    pass
+
 class Board:
     def __init__(self, fill_with=" " * (15*15)):
         self.grid = [
@@ -14,6 +18,7 @@ class Board:
             ]
             for row in range(15)
         ]
+        self.current_cell = Cell()
 
     @property
     def is_empty(self):
@@ -24,19 +29,26 @@ class Board:
         return True
 
     @staticmethod
-    def calculate_word_value(word: list[Cell]) -> int:
-        value: int = 0
-        multiplier_word = None
+    def calculate_word_value(word):
+        value = 0
+        multiplier_word = 1  # Initialize multiplier to 1
         for cell in word:
-            value = value + cell.calculate_value()
+            value += cell.calculate_value()
             if cell.multiplier_type == "word" and cell.multiplier_active:
                 multiplier_word = cell.multiplier
-                cell.deactivate_multiplier()  
-        if multiplier_word:
-            value = value * multiplier_word
+                cell.deactivate_multiplier()
         if len(word) == 7:
             value += 50
-        return value
+        return value * multiplier_word  # Apply the word multiplier
+
+    def show_board(self):  # Add self as parameter
+        print('\n  |' + ''.join([f' {str(row_index).rjust(2)} ' for row_index in range(15)]))
+        for row_index, row in enumerate(self.grid):  # Add self
+            print(
+                str(row_index).rjust(2) +
+                '| ' +
+                ' '.join([repr(cell) for cell in row])
+            )
 
     def validate_word_inside_board(self, word, location, orientation):
         position_x = location[0]
@@ -69,30 +81,56 @@ class Board:
             else:
                 for i, letter in enumerate(word):
                     if orientation == "H":
-                        current_cell = self.grid[position_x][position_y + i]
+                        self.current_cell = self.grid[position_x][position_y + i]
                     elif orientation == "V":
-                        current_cell = self.grid[position_x + i][position_y]
-                    current_cell.add_letter(Tile(letter, 1))
+                        self.current_cell = self.grid[position_x + i][position_y]
+                    self.current_cell.add_letter(Tile(letter, 1))
                 return True
         else:
             if orientation == "H":
                 for i, letter in enumerate(word):
                     current_cell = self.grid[position_x][position_y + i]
-                    if current_cell.letter is not None and current_cell.letter.letter != letter:
+                    if self.current_cell.letter is not None and self.current_cell.letter != letter:
                         return False
-                    current_cell.add_letter(Tile(letter, 1))
+                    self.current_cell.add_letter(Tile(letter, 1))
                 return True
             elif orientation == "V":
                 for i, letter in enumerate(word):
                     current_cell = self.grid[position_x + i][position_y]
-                    if current_cell.letter is not None and current_cell.letter.letter != letter:
+                    if self.current_cell.letter is not None and self.current_cell.letter != letter:
                         return False
-                    current_cell.add_letter(Tile(letter, 1))
+                    self.current_cell.add_letter(Tile(letter, 1))
                 return True
             else:
                 return False
+            
+    def place_word(self, word, location, orientation):
+        if not self.validate_word_place_word(word, location, orientation):
+            raise InvalidPlaceWordException("Invalid word placement.")
+
+        word_cells = []
+        position_x = location[0]
+        position_y = location[1]
+
+        for i, letter in enumerate(word):
+            if orientation == "H":
+                self.current_cell = self.grid[position_x][position_y + i]
+            elif orientation == "V":
+                self.current_cell = self.grid[position_x + i][position_y]
+            self.current_cell.add_letter(Tile(letter, 1))
+            word_cells.append(self.current_cell)
 
 
+    """ Places a word on the board.
+
+    Args:
+        word: A list of letters.
+        location: A tuple of coordinates (row, col).
+        orientation: A string, either "H" or "V".
+
+    Raises:
+        InvalidPlaceWordException: If the word cannot be placed on the board.
+        """
         
     '''@staticmethod
     def calculate_word_value(word: list[Cell]) -> int:
@@ -124,7 +162,7 @@ class Board:
 
         return word_value'''
     
-    ''' def place_word(self, word, location, orientation):
+    def place_word(self, word, location, orientation):
         row, col = location
         for letter in word:
             cell = Cell(letter=letter)
@@ -140,7 +178,7 @@ class Board:
         cell = self.grid[row][col]
         cell.letter = letter
         cell.score = score
-        cell.is_occupied = True '''
+        cell.is_occupied = True
 
 
 #X
