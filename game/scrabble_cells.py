@@ -36,8 +36,7 @@ class Cell:
         else:
             self.used = True
             return self.letter.value
-        self.deactivate_multiplier()
-        return value
+
     def __repr__(self):
         if self.letter:
             return repr(self.letter)

@@ -497,3 +497,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Dropped
 - place_word is scrapped and is going to be replaced with a much simpler method 
 - Dropped an unecessary config.yml in the archives
+
+## [1.3.2] -2023-31-10
+
+## Added
+
+- Added 'place_word' method to 'scrabble_board.py' so the program can insert the word into the board.
+- Added 'play' method to scrabble.py.
+- Added 'get_active_players_count' to 'scrabble.py' to give the number of active players in the turn.
+- Added 'start_game' to 'scrabble.py' so the game can begin.
+- Added 'get_scores' to 'scrabble.py' to get the scores of all players
+- Added 'get_name' to 'scrabble_player.py' so it can give the name that the player put on.
+- Re added the .codeclimate.yml to the game
+- Added the test.sh file to the game
+- Added the dockerfile so it is now dockerized the project.
+- Added '__repr__', 'list_words', 'extra_words', 'inser_word' and 'see_rack but they arent implemented yet

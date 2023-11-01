@@ -90,7 +90,7 @@ class Board:
         else:
             if orientation == "H":
                 for i, letter in enumerate(word):
-                    current_cell = self.grid[position_x][position_y + i]
+                    self.current_cell = self.grid[position_x][position_y + i]
                     if self.current_cell.letter is not None and self.current_cell.letter != letter:
                         return False
                     else:
@@ -98,7 +98,7 @@ class Board:
                         return True
             elif orientation == "V":
                 for i, letter in enumerate(word):
-                    current_cell = self.grid[position_x + i][position_y]
+                    self.current_cell = self.grid[position_x + i][position_y]
                     if self.current_cell.letter is not None and self.current_cell.letter != letter:
                         return False
                     else:
@@ -106,6 +106,30 @@ class Board:
                         return True
             else:
                 return False
+            
+    def place_word(self, word, location, orientation):
+        position_x = location[0]  
+        position_y = location[1] 
+
+        if not self.validate_word_place_word(word, (position_x, position_y), orientation):
+            raise InvalidPlaceWordException('Su palabra no entra en la ubicación')
+
+        if orientation == 'H':
+            for index, letter in enumerate(word.upper()):
+                self.current_cell = self.grid[position_x][position_y + index]
+                self.current_cell.add_letter(letter)
+        elif orientation == 'V':
+            for index, letter in enumerate(word.upper()):
+                self.current_cell = self.grid[position_x + index][position_y]
+                self.current_cell.add_letter(letter)
+
+
+    def list_words(self):
+        pass
+
+    def extra_words(self):
+        pass
+
             
 
 

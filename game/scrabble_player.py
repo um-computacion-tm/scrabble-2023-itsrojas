@@ -15,6 +15,14 @@ class Player:
         self.id = player_id 
         self.tile = Tile(letter='', value=0)
 
+    
+    def get_name(self):
+        return self.name
+    
+    def __repr__(self):
+        pass
+
+
     def draw_initial_tiles(self, initial_letters=None):
         if initial_letters is None:
             initial_letters = self.bag.take(7)
@@ -52,7 +60,7 @@ class Player:
         self.points += word_value
 
     def has_letters(self, word):
-        player_letters = [tile.letter for tile in self.hand]
+        player_letters = [self.tile.letter for self.tile in self.hand]
         player_letter_count = {letter: player_letters.count(letter) for letter in set(player_letters)}
         for letter in word:
             if letter not in player_letter_count or player_letter_count[letter] == 0:

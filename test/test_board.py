@@ -82,6 +82,46 @@ class TestBoard(unittest.TestCase):
         word_is_valid = board.validate_word_place_word(word, location, orientation)
         assert word_is_valid == False
 
+    def test_place_word_horizontal_valid(self):
+        board = Board()
+        word = "FACULTAD"
+        location = (7, 4)
+        orientation = "H"
+
+        board.place_word(word, location, orientation)
+        for index, letter in enumerate(word):
+            cell = board.grid[7][4 + index]
+            self.assertEqual(cell.letter.letter, letter)
+
+    def test_place_word_vertical_valid(self):
+        board = Board()
+        word = "FACULTAD"
+        location = (4, 7)
+        orientation = "V"
+
+        board.place_word(word, location, orientation)
+        for index, letter in enumerate(word):
+            cell = board.grid[4 + index][7]
+            self.assertEqual(cell.letter.letter, letter)
+
+    def test_place_word_horizontal_invalid(self):
+        board = Board()
+        word = "FACULTAD"
+        location = (2, 4)
+        orientation = "H"
+
+        with self.assertRaises(InvalidPlaceWordException):
+            board.place_word(word, location, orientation)
+
+    def test_place_word_vertical_invalid(self):
+        board = Board()
+        word = "FACULTAD"
+        location = (2, 4)
+        orientation = "V"
+
+        with self.assertRaises(InvalidPlaceWordException):
+            board.place_word(word, location, orientation)
+
 
 
 

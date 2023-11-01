@@ -24,6 +24,35 @@ class ScrabbleGame:
         self.players = [Player(player_id=index, bag_tiles=self.bag_tiles, name=player_names[index]) for index in range(players_count)]
         self.current_player = 0
 
+    def play(self, word, location, orientation):
+        self.validate_word(word, location, orientation)
+        words = self.board.put_words(word, location, orientation)
+        total = self.board.calculate_word_value(words)
+        self.players[self.current_player].score += total
+        self.next_turn()
+
+    def get_active_players_count(self):
+        active_players_count = sum(player.active for player in self.players)
+        return active_players_count
+
+    def start_game(self):
+        for player in self.players:
+            player.draw_initial_tiles()
+            player.refill_tiles()
+        self.board.show_board()
+
+    def see_rack(self, player):
+        pass
+
+    def get_scores(self):
+        scores = {}
+        for player in self.players:
+            scores[player.get_name()] = player.points
+        return self.players.name , scores 
+
+    def insertword(self):
+        pass
+
     def next_turn(self):
         if self.is_game_over():
             return
