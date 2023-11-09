@@ -1,12 +1,4 @@
 import unittest
-
-import sys
-import os
-
-repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-sys.path.insert(0, repo_root)
-
 from game.scrabble_objects import BagTiles, Tile
 from unittest.mock import patch
 
@@ -25,7 +17,7 @@ class TestWildcards(unittest.TestCase):
         self.assertEqual(tile.letter, 'X')
         self.assertEqual(tile.value, 8)
         self.assertTrue(tile.is_wildcard)
-
+        
 class TestBagTiles(unittest.TestCase):
     @patch('random.shuffle')
     def test_bag_tiles(self, patch_shuffle):
@@ -68,5 +60,3 @@ class TestBagTiles(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    
-#X

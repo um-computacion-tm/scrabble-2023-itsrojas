@@ -14,11 +14,9 @@ class Cell:
         self.letter = letter
         self.used = False
 
-    def deactivate_multiplier(self):
-        self.multiplier_active = False
-
     def add_letter(self, letter):
-        self.letter = letter
+        if isinstance(letter, Tile):  
+            self.letter = letter
         return self
     
     def deactivate_multiplier(self):
@@ -37,18 +35,12 @@ class Cell:
             self.used = True
             return self.letter.value
 
-    def __repr__(self):
-        if self.letter:
-            return repr(self.letter)
-        if self.multiplier > 1:
-            return f'{"W" if self.multiplier_type == "word" else "L"}x{self.multiplier}'
-        else:
-            return '   '
-
-    def get_multiplier(row, col):
-        dl_coordinates = [(4, 1), (12, 1), (1, 4), (8, 4), (15, 4), (3, 7), (7, 7), (9, 7), (13, 7), (4, 10), (12, 10), (0, 12), (7, 12), (14, 12), (3, 15), (11, 15)]
-        tl_coordinates = [(6, 2), (10, 2), (2, 6), (6, 6), (10, 6), (14, 6), (1, 8), (5, 8), (9, 8), (13, 8), (2, 10), (6, 10), (10, 10), (14, 10), (6, 14), (10, 14)]
-        dw_coordinates = [(1, 1), (8, 1), (15, 1), (2, 2), (14, 2), (3, 3), (13, 3), (4, 4), (12, 4), (7, 7), (11, 7), (4, 12), (12, 12), (1, 15), (8, 15), (15, 15)]
+    @classmethod
+    def get_multiplier(cls, row, col):
+        dl_coordinates = [(3, 0), (11, 0),(0, 3), (0, 11), (6, 2), (8, 2), (7, 3),(2, 6), (6, 6), (8, 6), (12, 6), (3, 7), (11, 7), (2, 8), (6, 8), (8, 8), (12, 8), (8, 12), (7, 11), (6, 12), (8, 12), (14, 3), (14, 11),
+                          (3, 14), (11, 14)] 
+        tl_coordinates = [(5, 1), (9, 1), (1, 5), (5, 5), (9, 5), (13, 5), (1, 9), (5, 9), (9, 9), (13, 9), (5, 13), (9, 13)]
+        dw_coordinates = [(1, 1), (13, 1), (2, 2), (12, 2), (3, 3), (11, 3), (4, 4), (10, 4), (7, 7), (4, 10), (10, 10), (3, 11), (11, 11), (2, 12), (12, 12), (1, 13), (13, 13)]
         tw_coordinates = [(0, 0), (7, 0), (14, 0), (0, 7), (14, 7), (0, 14), (7, 14), (14, 14)]
 
         if (row, col) in dl_coordinates:
@@ -56,18 +48,19 @@ class Cell:
         elif (row, col) in tl_coordinates:
             return 3  # Triple Letter
         elif (row, col) in dw_coordinates:
-            return 4  # Double Word
+            return 2  # Double Word
         elif (row, col) in tw_coordinates:
-            return 6  # Triple Word
+            return 3  # Triple Word
         else:
             return 1
-
-    def get_multiplier_type(row, col):
-        dl_coordinates = [(4, 1), (12, 1), (1, 4), (8, 4), (15, 4), (3, 7), (7, 7), (9, 7), (13, 7), (4, 10), (12, 10), (0, 12), (7, 12), (14, 12), (3, 15), (11, 15)]
-        tl_coordinates = [(6, 2), (10, 2), (2, 6), (6, 6), (10, 6), (14, 6), (1, 8), (5, 8), (9, 8), (13, 8), (2, 10), (6, 10), (10, 10), (14, 10), (6, 14), (10, 14)]
-        dw_coordinates = [(1, 1), (8, 1), (15, 1), (2, 2), (14, 2), (3, 3), (13, 3), (4, 4), (12, 4), (7, 7), (11, 7), (4, 12), (12, 12), (1, 15), (8, 15), (15, 15)]
+    @classmethod
+    def get_multiplier_type(cls, row, col):
+        dl_coordinates = [(3, 0), (11, 0),(0, 3), (0, 11), (6, 2), (8, 2), (7, 3),(2, 6), (6, 6), (8, 6), (12, 6), (3, 7), (11, 7), (2, 8), (6, 8), (8, 8), (12, 8), (8, 12), (7, 11), (6, 12), (8, 12), (14, 3), (14, 11),
+                          (3, 14), (11, 14)] 
+        tl_coordinates = [(5, 1), (9, 1), (1, 5), (5, 5), (9, 5), (13, 5), (1, 9), (5, 9), (9, 9), (13, 9), (5, 13), (9, 13)]
+        dw_coordinates = [(1, 1), (13, 1), (2, 2), (12, 2), (3, 3), (11, 3), (4, 4), (10, 4), (7, 7), (4, 10), (10, 10), (3, 11), (11, 11), (2, 12), (12, 12), (1, 13), (13, 13)]
         tw_coordinates = [(0, 0), (7, 0), (14, 0), (0, 7), (14, 7), (0, 14), (7, 14), (14, 14)]
-
+        
         if (row, col) in dl_coordinates:
             return "DL"
         elif (row, col) in tl_coordinates:
@@ -77,15 +70,4 @@ class Cell:
         elif (row, col) in tw_coordinates:
             return "TW"
         else:
-            return ""  # No multiplier
-        
-    ''' def is_multi(self):
-        return self.multiplier_type in {'x2_letter', 'x3_letter', 'x2_word', 'x3_word'}
-
-
-    class SpecialCell(Cell):
-        def __init__(self, multiplier, multiplier_type, icon):
-            super().__init__(multiplier, multiplier_type)
-            self.icon = icon '''
-            
-#X
+            return ""  

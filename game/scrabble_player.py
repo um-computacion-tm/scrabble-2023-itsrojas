@@ -14,23 +14,24 @@ class Player:
         self.active = active
         self.id = player_id 
         self.tile = Tile(letter='', value=0)
+        self.skip_count = 0
 
     
     def get_name(self):
         return self.name
     
     def __repr__(self):
-        pass
+        return f"Player(name='{self.name}', points={self.points}, rack={self.hand})"
 
 
     def draw_initial_tiles(self, initial_letters=None):
         if initial_letters is None:
-            initial_letters = self.bag.take(7)
+            initial_letters = self.bag.take(7)  # Cambiar 0 a 7
             self.hand.extend(initial_letters)
             return self.hand
         else:
             pass
-
+        
     def refill_tiles(self):
         while len(self.hand) < 7:
             new_tiles = self.bag.take(7 - len(self.hand))
@@ -67,19 +68,3 @@ class Player:
                 return False
             player_letter_count[letter] -= 1
         return True
-
-
-
-    """Verifica si el jugador tiene todas las letras necesarias para formar la palabra.
-
-    Args:
-        tiles: Una lista de objetos Tile que representan las letras de la palabra.
-
-    Returns:
-        True si el jugador tiene todas las letras necesarias, False en caso contrario.
-    """
-
-#X
-
-
-

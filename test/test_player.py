@@ -1,13 +1,4 @@
 import unittest
-
-import sys
-import os
-
-repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-sys.path.insert(0, repo_root)
-
-import unittest
 from game.scrabble_objects import BagTiles, Tile
 from game.scrabble_player import Player
 
@@ -91,8 +82,22 @@ class TestPlayer(unittest.TestCase):
 
         self.assertEqual(is_valid, False)
 
+    def test_rack_representation(self):
+        player = Player(bag_tiles=self.bag)
+        player.hand = [
+            Tile(letter='H', value=4),
+            Tile(letter='O', value=1),
+            Tile(letter='L', value=1),
+            Tile(letter='A', value=1),
+            Tile(letter='C', value=3),
+            Tile(letter='U', value=1),
+            Tile(letter='M', value=3),
+        ]
+        expected_rack_repr = "Player(name='', points=0, rack=[H:4, O:1, L:1, A:1, C:3, U:1, M:3])"
+
+        self.assertEqual(repr(player), expected_rack_repr)
+
 
 if __name__ == '__main__':
     unittest.main()
-    
-#X
+
